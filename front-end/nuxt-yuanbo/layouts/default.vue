@@ -44,7 +44,7 @@ export default {
 <style lang="scss" scoped>
   .main-container {
     margin: 0 auto;
-    padding: 10px 0;
+    padding: 20px 0;
     width: 1200px;
     overflow: hidden;
   }

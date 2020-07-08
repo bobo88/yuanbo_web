@@ -8,7 +8,7 @@
         <b>站点声明：</b>所有文章未经授权禁止转载、摘编、复制或建立镜像，如有违反，追究法律责任。
       </div>
       <!-- 公安备案号 xxx -->
-      <div class="copyright">Copyright © <a href="http://www.yuanbo-web.com/"></a>www.yuanbo-web.com All Rights Reserved. 备案号：<a href="http://www.beian.miit.gov.cn/" target="_blank">粤ICP备20058163</a> </div>
+      <div class="copyright">Copyright © <a href="http://www.yuanbo-web.com/">www.yuanbo-web.com</a> All Rights Reserved. 备案号：<a href="http://www.beian.miit.gov.cn/" target="_blank">粤ICP备20058163号</a> </div>
     </div>
   </footer>
 </template>
@@ -57,6 +57,9 @@
       }
       .copyright {
         text-align: center;
+        a:hover {
+          color: #409eff;
+        }
       }
     }
   }

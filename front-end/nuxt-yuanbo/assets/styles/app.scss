@@ -172,3 +172,11 @@ input, textarea, select {
     transition: all .5s ease;
   }
 }
+/* 列表box */
+.content-box {
+  background: #fff;
+  border-radius: 3px;
+  padding: 20px;
+  margin-bottom: 20px;
+  overflow: hidden;
+}

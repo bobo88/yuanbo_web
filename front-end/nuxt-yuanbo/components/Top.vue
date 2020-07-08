@@ -7,7 +7,8 @@
 
       <div class="nav-list fl">
         <nuxt-link class="nav-item" to="/">首页</nuxt-link>
-        <nuxt-link class="nav-item" to="/test">Test</nuxt-link>
+        <nuxt-link class="nav-item" to="/blog-list">个人博客</nuxt-link>
+        <nuxt-link class="nav-item" to="/program-life">程序人生</nuxt-link>
       </div>
     </div>
   </header>
