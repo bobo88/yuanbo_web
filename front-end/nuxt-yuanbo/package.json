@@ -12,6 +12,12 @@
     "lint:js": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "lint": "npm run lint:js"
   },
+  "config": {
+    "nuxt": {
+      "host": "0.0.0.0",
+      "port": "80"
+    }
+  },
   "dependencies": {
     "@nuxtjs/axios": "^5.11.0",
     "element-ui": "^2.13.2",

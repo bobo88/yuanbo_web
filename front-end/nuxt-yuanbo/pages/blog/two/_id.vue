@@ -5,11 +5,12 @@
         <div class="mb30">
           <el-breadcrumb separator-class="el-icon-arrow-right">
             <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-            <el-breadcrumb-item>程序人生</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: '/program-life' }">程序人生</el-breadcrumb-item>
+            <el-breadcrumb-item>文章详情</el-breadcrumb-item>
           </el-breadcrumb>
         </div>
 
-        111111111111111111
+        2222222222222222222
       </div>
     </div>
 

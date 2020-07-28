@@ -5,11 +5,15 @@
         <div class="mb30">
           <el-breadcrumb separator-class="el-icon-arrow-right">
             <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-            <el-breadcrumb-item>个人博客</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: '/blog-list' }">个人博客</el-breadcrumb-item>
+            <el-breadcrumb-item>文章详情</el-breadcrumb-item>
           </el-breadcrumb>
         </div>
 
-        111111111111111111
+        <!-- ArticleComp -->
+        <article-comp />
+        <!-- CommentComp -->
+        <comment-comp />
       </div>
     </div>
 
@@ -22,58 +26,21 @@
 
 <script>
 import Ranking from '~/components/home/Ranking'
+import ArticleComp from '~/components/blog/ArticleComp'
+import CommentComp from '~/components/blog/CommentComp'
 export default {
   validate ({ params }) {
     // 必须是number类型
     return /^\d+$/.test(params.id)
   },
   components: {
-    Ranking
+    Ranking,
+    ArticleComp,
+    CommentComp
   },
   data () {
     return {
-      activities: [
-        {
-          content: '程序人生AAAAA',
-          timestamp: '2018-04-15'
-        },
-        {
-          content: '程序人生BBBBB',
-          timestamp: '2018-04-13'
-        },
-        {
-          content: '程序人生AAAAA',
-          timestamp: '2018-04-15'
-        },
-        {
-          content: '程序人生BBBBB',
-          timestamp: '2018-04-13'
-        },
-        {
-          content: '程序人生AAAAA',
-          timestamp: '2018-04-15'
-        },
-        {
-          content: '程序人生BBBBB',
-          timestamp: '2018-04-13'
-        },
-        {
-          content: '程序人生AAAAA',
-          timestamp: '2018-04-15'
-        },
-        {
-          content: '程序人生BBBBB',
-          timestamp: '2018-04-13'
-        },
-        {
-          content: '程序人生AAAAA',
-          timestamp: '2018-04-15'
-        },
-        {
-          content: '程序人生CCCCC',
-          timestamp: '2018-04-11'
-        }
-      ]
+      // xx
     }
   },
   computed: {},

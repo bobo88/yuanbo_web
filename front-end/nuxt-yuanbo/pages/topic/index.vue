@@ -40,10 +40,7 @@ export default {
     // xx
   },
   mounted () {
-    console.log(12, this)
-    this.$axios.get('/api/blog/list').then((res) => {
-      console.log(res)
-    })
+    // xx
   },
   methods: {}
 }

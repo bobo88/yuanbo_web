@@ -12,10 +12,10 @@
         <!-- 博客列表 -->
         <el-timeline>
           <el-timeline-item
-            v-for="(activity, index) in activities"
+            v-for="(blogItem, index) in activities"
             :key="index"
-            :timestamp="activity.timestamp">
-            <a href="#" class="article-item">{{activity.content}}</a>
+            :timestamp="blogItem.timestamp">
+            <nuxt-link class="article-item" :to="'/blog/two/' + blogItem.id">{{ blogItem.content }}</nuxt-link>
           </el-timeline-item>
         </el-timeline>
 
@@ -47,42 +47,52 @@ export default {
       activities: [
         {
           content: '程序人生AAAAA',
+          id: 1,
           timestamp: '2018-04-15'
         },
         {
           content: '程序人生BBBBB',
+          id: 1,
           timestamp: '2018-04-13'
         },
         {
           content: '程序人生AAAAA',
+          id: 1,
           timestamp: '2018-04-15'
         },
         {
           content: '程序人生BBBBB',
+          id: 1,
           timestamp: '2018-04-13'
         },
         {
           content: '程序人生AAAAA',
+          id: 1,
           timestamp: '2018-04-15'
         },
         {
           content: '程序人生BBBBB',
+          id: 1,
           timestamp: '2018-04-13'
         },
         {
           content: '程序人生AAAAA',
+          id: 1,
           timestamp: '2018-04-15'
         },
         {
           content: '程序人生BBBBB',
+          id: 1,
           timestamp: '2018-04-13'
         },
         {
           content: '程序人生AAAAA',
+          id: 1,
           timestamp: '2018-04-15'
         },
         {
           content: '程序人生CCCCC',
+          id: 1,
           timestamp: '2018-04-11'
         }
       ]
