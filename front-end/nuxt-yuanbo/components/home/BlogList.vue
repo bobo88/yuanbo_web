@@ -5,22 +5,22 @@
     </h2>
     <!-- 列表 -->
     <ul>
-      <li v-for="item in blogList" :key="item">
+      <li v-for="(item, index) in blogList" :key="index">
         <h3 class="blogtitle">
-          <a href="#" target="_blank">博客内容Test</a>
+          <a :href="'/blog/one/' + item.id" target="_blank">{{ item.title }}</a>
         </h3>
         <span class="blogpic imgscale">
-          <a v-if="item % 2 === 0" href="#" title="博客内容Test"><img src="~/assets/images/blog.png" alt="博客内容Test"></a>
-          <a v-else href="#" title="博客内容Test"><img src="~/assets/images/blog2.png" alt="博客内容Test"></a>
+          <a v-if="item % 2 === 0" :href="'/blog/one/' + item.id" :title="item.title"><img src="~/assets/images/blog.png" :alt="item.title"></a>
+          <a v-else :href="'/blog/one/' + item.id" :title="item.title"><img src="~/assets/images/blog2.png" :alt="item.title"></a>
         </span>
-        <p class="blogtext">事实上，在去年的双十一狂欢节上，阿里云的拼团大行动就引发业内的轰动，无论是成交量还是影响力，都令国内其他云品牌为之汗颜!那么，今年双十一阿里云拼团活动又有哪些优惠消息呢? </p>
+        <p class="blogtext">{{ item.content }}</p>
         <p class="bloginfo">
           <i class="avatar"><img src="~/assets/images/logo/avatar.png"></i>
           <span>袁波</span>
-          <span>2019-10-24</span>
-          <span>【<a href="#" target="_blank">个人博客</a>】</span>
+          <span>{{ item.createtime | dateFormatYyyyMmDd }}</span>
+          <span>【<a href="/blog-list" target="_blank">个人博客</a>】</span>
         </p>
-        <a href="#" class="viewmore">
+        <a :href="'/blog/one/' + item.id" class="viewmore">
           <el-button type="primary" size="mini">阅读更多</el-button>
         </a>
       </li>
@@ -30,19 +30,30 @@
 
 <script>
 export default {
+  name: 'BlogListComp',
   data () {
     return {
-      blogList: 6
+      blogList: []
     }
   },
   computed: {},
   created () {
-    // xx
+    // 获取博客列表
+    this.getBlogList()
   },
   mounted () {
     // xx
   },
-  methods: {}
+  methods: {
+    getBlogList () {
+      this.$axios.get('/api/blog/list').then((res) => {
+        console.log(res)
+        if (res.data && res.data.code === 0) {
+          this.blogList = res.data.data || []
+        }
+      })
+    }
+  }
 }
 </script>
 

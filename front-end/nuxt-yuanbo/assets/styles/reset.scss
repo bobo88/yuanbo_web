@@ -50,3 +50,61 @@
     }
   }
 }
+
+
+/* 评论 */
+.comment-textarea-box {
+  border-radius: 4px;
+  background: #f7f7f7;
+  padding: 10px;
+  box-shadow: inset 2px 2px 6px rgba(0,0,0,.08);
+  .comment-textarea {
+    .el-textarea__inner {
+      border: none;
+      background: #f7f7f7;
+    }
+  }
+}
+.comment-tools {
+  padding: 10px 0 0;
+  .username {
+    float: right;
+    height: 40px;
+    width: 170px;
+    background: #e8e8e8;
+    border-radius: 20px;
+    padding: 10px 8px 10px 16px;
+    margin: 0;
+    box-shadow: inset 2px 2px 6px rgba(0,0,0,.08);
+    cursor: default;
+    .el-input {
+      width: 110px;
+      .el-input__inner {
+        padding: 0;
+        width: 110px;
+        height: 20px;
+        line-height: 20px;
+        border: none;
+        background: #e8e8e8;
+      }
+    }
+    .el-input__icon {
+      height: 20px;
+      line-height: 20px;
+      font-size: 20px;
+    }
+  }
+}
+
+.ql-editor {
+  .ql-syntax {
+    padding: 10px 20px;
+    line-height: 24px;
+    color: #fff;
+    font-size: 14px;
+    font-family: Arial;
+    background: #000;
+    border-radius: 6px;
+  }
+}
+

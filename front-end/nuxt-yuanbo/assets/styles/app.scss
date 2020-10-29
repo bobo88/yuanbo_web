@@ -202,9 +202,13 @@ input, textarea, select {
   .content {
     word-break: break-word;
     text-align: justify;
+    h1, h2, h3, h4, h5 {
+      margin: 20px 0;
+    }
     p {
-      margin: 26px 0;
+      margin: 10px 0;
       line-height: 30px;
+      font-size: 14px;
     }
     img {
       border: 0;
@@ -216,13 +220,4 @@ input, textarea, select {
   }
 }
 /* 评论详情 */
-.comment-box {
-  font-size: 18px;
-  font-weight: normal;
-  padding: 5px 0;
-  margin: 20px 0 10px;
-  position: relative;
-  border-top: #ccc 2px solid;
-  border-bottom: #ececec 1px solid;
-  color: #333333;
-}
+.comment-box {}

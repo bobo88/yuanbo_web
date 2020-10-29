@@ -14,7 +14,7 @@ import {
   Submenu,
   MenuItem,
   MenuItemGroup,
-  // Input,
+  Input,
   // InputNumber,
   // Radio,
   // RadioGroup,
@@ -76,7 +76,11 @@ import {
   // Calendar,
   // Backtop,
   // PageHeader,
-  CascaderPanel
+  CascaderPanel,
+  Loading,
+  MessageBox,
+  Message,
+  Notification
 } from 'element-ui'
 Vue.use(Pagination)
 // Vue.use(Dialog)
@@ -88,7 +92,7 @@ Vue.use(Menu)
 Vue.use(Submenu)
 Vue.use(MenuItem)
 Vue.use(MenuItemGroup)
-// Vue.use(Input)
+Vue.use(Input)
 // Vue.use(InputNumber)
 // Vue.use(Radio)
 // Vue.use(RadioGroup)
@@ -151,3 +155,11 @@ Vue.use(TimelineItem)
 // Vue.use(Backtop)
 // Vue.use(PageHeader)
 Vue.use(CascaderPanel)
+Vue.use(Loading.directive)
+Vue.prototype.$loading = Loading.service
+Vue.prototype.$msgbox = MessageBox
+Vue.prototype.$alert = MessageBox.alert
+Vue.prototype.$confirm = MessageBox.confirm
+Vue.prototype.$prompt = MessageBox.prompt
+Vue.prototype.$notify = Notification
+Vue.prototype.$message = Message

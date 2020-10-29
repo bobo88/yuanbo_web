@@ -45,52 +45,8 @@ export default {
   },
   data () {
     return {
+      blogList: [],
       activities: [
-        {
-          content: '博客标题AAAAA',
-          id: 1,
-          timestamp: '2018-04-15'
-        },
-        {
-          content: '博客标题BBBBB',
-          id: 2,
-          timestamp: '2018-04-13'
-        },
-        {
-          content: '博客标题AAAAA',
-          id: 3,
-          timestamp: '2018-04-15'
-        },
-        {
-          content: '博客标题BBBBB',
-          id: 4,
-          timestamp: '2018-04-13'
-        },
-        {
-          content: '博客标题AAAAA',
-          id: 5,
-          timestamp: '2018-04-15'
-        },
-        {
-          content: '博客标题BBBBB',
-          id: 1,
-          timestamp: '2018-04-13'
-        },
-        {
-          content: '博客标题AAAAA',
-          id: 1,
-          timestamp: '2018-04-15'
-        },
-        {
-          content: '博客标题BBBBB',
-          id: 1,
-          timestamp: '2018-04-13'
-        },
-        {
-          content: '博客标题AAAAA',
-          id: 1,
-          timestamp: '2018-04-15'
-        },
         {
           content: '博客标题CCCCC',
           id: 1,
@@ -101,12 +57,21 @@ export default {
   },
   computed: {},
   created () {
-    // xx
+    // 获取博客列表
+    this.getBlogList()
   },
   mounted () {
     // xx
   },
-  methods: {}
+  methods: {
+    getBlogList () {
+      this.$axios.get('/api/blog/list?type=1').then((res) => {
+        console.log(res)
+        if (res.data) {}
+        this.blogList = res
+      })
+    }
+  }
 }
 </script>
 

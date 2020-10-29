@@ -38,7 +38,9 @@ export default {
   ** https://nuxtjs.org/guide/plugins
   */
   plugins: [
-    '@/plugins/element-ui'
+    // '@/plugins/vue-highlight',
+    '@/plugins/element-ui',
+    '@/plugins/filters'
   ],
   /*
   ** Auto import components
@@ -63,7 +65,21 @@ export default {
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
   */
-  axios: {},
+  axios: {
+    // See https://github.com/nuxt-community/axios-module#options
+    proxy: true, // 表示开启代理
+    prefix: process.env.NODE_ENV === 'dev' ? '/pre' : '', // 表示给请求url加个前缀 /api
+    credentials: true // 表示跨域请求时是否需要使用凭证
+  },
+  proxy: {
+    '/pre': {
+      target: 'http://localhost:3000/', // 目标接口域名
+      changeOrigin: true, // 表示是否跨域
+      pathRewrite: {
+        '^/pre': '', // 把 /api 替换成‘’
+      }
+    }
+  },
   /*
   ** Build configuration
   ** See https://nuxtjs.org/api/configuration-build/

@@ -3,6 +3,7 @@
     <div class="lbox">
       <div class="content-box bgcolorF">
         <div class="mb30">
+          <!-- {{ $nuxt.$route.params.id }} -->
           <el-breadcrumb separator-class="el-icon-arrow-right">
             <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
             <el-breadcrumb-item :to="{ path: '/blog-list' }">个人博客</el-breadcrumb-item>
@@ -11,9 +12,9 @@
         </div>
 
         <!-- ArticleComp -->
-        <article-comp />
+        <article-comp :data-detail="blogDetailObj" />
         <!-- CommentComp -->
-        <comment-comp />
+        <comment-comp :data-detail="blogDetailObj" />
       </div>
     </div>
 
@@ -40,17 +41,37 @@ export default {
   },
   data () {
     return {
-      // xx
+      blogDetailObj: {}
     }
   },
   computed: {},
   created () {
-    // xx
+    // 获取博客详情
+    this.getBlogDetail()
   },
   mounted () {
     // xx
   },
-  methods: {}
+  methods: {
+    getBlogDetail () {
+      /**
+       * author: "zhangsan"
+        content: "内容B"
+        createtime: 1594632801670
+        from: null
+        hot: 2
+        id: 2
+        title: "标题B"
+        typeID: null
+       */
+      this.$axios.get('/api/blog/detail?id=' + this.$nuxt.$route.params.id).then((res) => {
+        // console.log(res)
+        if (res.data && res.data.code === 0) {
+          this.blogDetailObj = res.data.data || {}
+        }
+      })
+    }
+  }
 }
 </script>
 

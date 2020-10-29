@@ -41,9 +41,9 @@ export default {
   },
   mounted () {
     console.log(12, this)
-    this.$axios.get('/api/blog/list').then((res) => {
-      console.log(res)
-    })
+    // this.$axios.get('/api/blog/list').then((res) => {
+    //   console.log(res)
+    // })
   },
   methods: {}
 }
