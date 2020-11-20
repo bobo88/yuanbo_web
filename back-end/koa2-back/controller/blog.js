@@ -1,15 +1,18 @@
 // const xss = require('xss')
 const { exec } = require('../db/mysql')
 
-const getList = async (author, keyword) => {
+const blogList = async (type, pageNum) => {
+  console.log(type, pageNum)
   let sql = `select * from blogs where 1=1 `
-  if (author) {
-    sql += `and author='${author}' `
+  if (type) {
+    sql += `and typeId=${type} `
   }
-  if (keyword) {
-    sql += `and title like '%${keyword}%' `
+  if (pageNum) {
+    // sql += `and title like '%${type}%' `
   }
   sql += `order by id desc;`
+
+  console.log('sql: ', sql)
   // 返回promise
   return await exec(sql)
 }
@@ -63,7 +66,7 @@ const getDetail = async (id) => {
 // }
 
 module.exports = {
-  getList,
+  blogList,
   getDetail
   // newBlog,
   // updateBlog,

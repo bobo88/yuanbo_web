@@ -1,26 +1,28 @@
 const router = require('koa-router')()
 // newBlog, updateBlog, delBlog
-const { getList, getDetail } = require('../controller/blog')
+const { blogList, getDetail } = require('../controller/blog')
 const { SuccessModel, ErrorModel } = require('../model/resModel')
 // const loginCheck = require('../middleware/loginCheck')
 
 router.prefix('/api/blog')
 
-router.get('/list', async function (ctx, next) {
-  let { author = '', keyword = '' } = ctx.query
+router.post('/list', async function (ctx, next) {
+  const body = ctx.request.body
+  console.log(222, body)
+  let { type = '', pageNum = '' } = body
 
-  if (ctx.query.isadmin) {
-    // 管理员界面
-    if (ctx.session.username === null) {
-      // 未登录
-      ctx.body = new ErrorModel('未登录')
-      return
-    }
-    // 强制查询自己的博客
-    author = ctx.session.username
-  }
-
-  const listData = await getList(author, keyword)
+  // if (ctx.query.isadmin) {
+  //   // 管理员界面
+  //   if (ctx.session.username === null) {
+  //     // 未登录
+  //     ctx.body = new ErrorModel('未登录')
+  //     return
+  //   }
+  //   // 强制查询自己的博客
+  //   author = ctx.session.username
+  // }
+  console.log(12, typeof type, type, pageNum)
+  const listData = await blogList(type, pageNum)
   ctx.body = new SuccessModel(listData)
 })
 

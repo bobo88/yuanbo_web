@@ -1,0 +1,1 @@
+1¡¢ ¿ªÆô±¾µØMySQL£º net start mysql
