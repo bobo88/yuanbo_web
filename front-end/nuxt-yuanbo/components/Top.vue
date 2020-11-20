@@ -2,16 +2,15 @@
   <header id="header">
     <div class="navbox clearfix">
       <div class="logo fl">
-        <nuxt-link class="home" to="/">袁波个人博客<span>|</span><small>WEB前端</small></nuxt-link>
+        <nuxt-link class="home" to="/">
+          袁波个人博客
+          <span>|</span>
+          <small>WEB前端</small>
+        </nuxt-link>
       </div>
 
       <div class="nav-list fl">
-        <!-- <nuxt-link class="nav-item" to="/">首页</nuxt-link>
-        <nuxt-link class="nav-item" to="/blog-list">个人博客</nuxt-link>
-        <nuxt-link class="nav-item" to="/program-life">程序人生</nuxt-link>
-        <nuxt-link class="nav-item" to="/program-life">专题版块</nuxt-link> -->
-
-        <el-menu :default-active="this.$route.path" :router='true' class="el-menu-bobo" mode="horizontal" @select="handleSelect">
+        <el-menu :default-active="this.$route.path" :router="true" class="el-menu-bobo" mode="horizontal" @select="handleSelect">
           <el-menu-item index="/">首页</el-menu-item>
           <el-menu-item index="/blog-list">个人博客</el-menu-item>
           <el-menu-item index="/program-life">程序人生</el-menu-item>

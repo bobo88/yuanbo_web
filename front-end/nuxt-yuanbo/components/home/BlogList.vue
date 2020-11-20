@@ -33,7 +33,8 @@ export default {
   name: 'BlogListComp',
   data () {
     return {
-      blogList: []
+      blogList: [],
+      total: 0
     }
   },
   computed: {},
@@ -46,10 +47,18 @@ export default {
   },
   methods: {
     getBlogList () {
-      this.$axios.get('/api/blog/list').then((res) => {
-        console.log(res)
-        if (res.data && res.data.code === 0) {
-          this.blogList = res.data.data || []
+      this.$axios.post('/api/blog/list').then((res) => {
+        console.log('/api/blog/list: --->', res)
+        const resData = res.data
+        if (resData && resData.code === 0) {
+          const resDataData = resData.data
+          if (resDataData.list && resDataData.list.length > 0) {
+            this.blogList = resDataData.list || []
+            this.total = resDataData.total
+          } else {
+            this.blogList = []
+            this.total = 0
+          }
         }
       })
     }

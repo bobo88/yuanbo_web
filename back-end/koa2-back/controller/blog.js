@@ -1,8 +1,9 @@
 // const xss = require('xss')
 const { exec } = require('../db/mysql')
 
+// 1、API：-- 博客列表接口
 const blogList = async (type, pageNum) => {
-  console.log(type, pageNum)
+  // console.log(type, pageNum)
   let pageSize = 20;
   let limitStart = pageSize * (pageNum - 1);
   let sqlTotal = 'SELECT COUNT(*) as total FROM blogs WHERE 1=1 ';
@@ -18,17 +19,32 @@ const blogList = async (type, pageNum) => {
   sql += ';';
   // console.log('sql: ', sql)
   let rows = await exec(sqlTotal);
-  // 返回promise
   return {
     total: rows[0].total || 0,
     list: await exec(sql)
   }
 }
 
+// 2、API：-- 博客详情接口
 const getDetail = async (id) => {
-  const sql = `select * from blogs where id='${id}'`
+  const sql = `SELECT * FROM blogs WHERE id='${id}'`
   const rows = await exec(sql)
   return rows[0]
+}
+
+// 3、API：-- 博客排名列表接口
+const rankList = async (type) => {
+  let pageSize = 8;
+  let sql = `SELECT * FROM blogs WHERE 1=1 `
+  if (type) {
+    sql += `AND typeId=${type} `
+  }
+  sql += `ORDER BY hot DESC `
+  sql += `LIMIT 0, ${pageSize} `
+  sql += ';';
+  return {
+    list: await exec(sql)
+  }
 }
 
 // const newBlog = async (blogData = {}) => {
@@ -75,7 +91,8 @@ const getDetail = async (id) => {
 
 module.exports = {
   blogList,
-  getDetail
+  getDetail,
+  rankList
   // newBlog,
   // updateBlog,
   // delBlog

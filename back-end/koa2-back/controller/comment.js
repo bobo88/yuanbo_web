@@ -2,20 +2,20 @@ const xss = require('xss')
 const { exec } = require('../db/mysql')
 
 const getListById = async (id) => {
-  let sql = `select * from comments where blogID='${id}' `
-  sql += `order by id desc;`
+  let sql = `SELECT * FROM comments WHERE blogId='${id}' `
+  sql += `ORDER BY id DESC;`
   // 返回promise
   return await exec(sql)
 }
 
 const addComment = async (commentData = {}) => {
-  const blogID = xss(commentData.blogID)
+  const blogId = xss(commentData.blogId)
   const content = xss(commentData.content)
   const username = xss(commentData.username)
   const createTime = Date.now()
   const sql = `
-    insert into comments (blogID, content, createTime, username)
-    values ('${blogID}', '${content}', '${createTime}', '${username}')
+    INSERT INTO comments (blogId, content, createTime, username)
+    VALUES ('${blogId}', '${content}', '${createTime}', '${username}')
   `
   const insertData = await exec(sql)
   return {
@@ -40,7 +40,7 @@ const addComment = async (commentData = {}) => {
 const delComment = async (id, author) => {
   console.log('del blog data..', id)
   const sql = `
-    delete from comments where id=${id} and author='${author}'
+    DELETE FROM comments WHERE id=${id} AND author='${author}'
   `
   const deleteData = await exec(sql)
   if (deleteData.affectedRows > 0) {

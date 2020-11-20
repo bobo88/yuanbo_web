@@ -1,16 +1,15 @@
 const router = require('koa-router')()
 // newBlog, updateBlog, delBlog
-const { blogList, getDetail } = require('../controller/blog')
+const { blogList, getDetail, rankList } = require('../controller/blog')
 const { SuccessModel, ErrorModel } = require('../model/resModel')
 // const loginCheck = require('../middleware/loginCheck')
 
 router.prefix('/api/blog')
 
+// 1、API：-- 博客列表接口
 router.post('/list', async function (ctx, next) {
   const body = ctx.request.body
-  console.log(222, body)
   let { type = '', pageNum = '' } = body
-
   // if (ctx.query.isadmin) {
   //   // 管理员界面
   //   if (ctx.session.username === null) {
@@ -21,14 +20,22 @@ router.post('/list', async function (ctx, next) {
   //   // 强制查询自己的博客
   //   author = ctx.session.username
   // }
-  console.log(12, typeof type, type, pageNum)
   const listData = await blogList(type, pageNum)
   ctx.body = new SuccessModel(listData)
 })
 
+// 2、API：-- 博客详情接口
 router.get('/detail', async function (ctx, next) {
   const data = await getDetail(ctx.query.id)
   ctx.body = new SuccessModel(data)
+})
+
+// 3、API：-- 博客排名列表接口
+router.post('/rank', async function (ctx, next) {
+  const body = ctx.request.body
+  let { type = ''} = body
+  const listData = await rankList(type)
+  ctx.body = new SuccessModel(listData)
 })
 
 // router.post('/new', loginCheck, async function (ctx, next) {

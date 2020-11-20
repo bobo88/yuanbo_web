@@ -65,7 +65,7 @@ export default {
   },
   methods: {
     getBlogList () {
-      this.$axios.get('/api/blog/list?type=1').then((res) => {
+      this.$axios.post('/api/blog/list').then((res) => {
         console.log(res)
         if (res.data) {}
         this.blogList = res

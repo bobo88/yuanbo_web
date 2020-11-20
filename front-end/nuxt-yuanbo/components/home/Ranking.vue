@@ -2,17 +2,56 @@
   <div class="ranking bgcolorF">
     <h2 class="htitle">点击排行</h2>
     <ul>
+      <li v-for="(item, index) in rankList" :key="index">
+        <i></i>
+        <a href="#" :title="item.title" target="_blank">{{ item.title }}</a>
+      </li>
+      <!-- <li><i></i><a href="#" title="yuanbo-web.com" target="_blank">个人博客yuanbo-web.com</a></li>
       <li><i></i><a href="#" title="yuanbo-web.com" target="_blank">个人博客yuanbo-web.com</a></li>
       <li><i></i><a href="#" title="yuanbo-web.com" target="_blank">个人博客yuanbo-web.com</a></li>
       <li><i></i><a href="#" title="yuanbo-web.com" target="_blank">个人博客yuanbo-web.com</a></li>
       <li><i></i><a href="#" title="yuanbo-web.com" target="_blank">个人博客yuanbo-web.com</a></li>
       <li><i></i><a href="#" title="yuanbo-web.com" target="_blank">个人博客yuanbo-web.com</a></li>
-      <li><i></i><a href="#" title="yuanbo-web.com" target="_blank">个人博客yuanbo-web.com</a></li>
-      <li><i></i><a href="#" title="yuanbo-web.com" target="_blank">个人博客yuanbo-web.com</a></li>
-      <li><i></i><a href="#" title="yuanbo-web.com" target="_blank">个人博客yuanbo-web.com</a></li>
+      <li><i></i><a href="#" title="yuanbo-web.com" target="_blank">个人博客yuanbo-web.com</a></li> -->
     </ul>
   </div>
 </template>
+
+<script>
+export default {
+  name: 'rankingComp',
+  data () {
+    return {
+      rankList: [],
+      total: 0
+    }
+  },
+  computed: {},
+  created () {
+    // 获取热门博客列表
+    this.getRankList()
+  },
+  mounted () {
+    // xx
+  },
+  methods: {
+    getRankList () {
+      this.$axios.post('/api/blog/rank').then((res) => {
+        console.log('/api/blog/rank: --->', res)
+        const resData = res.data
+        if (resData && resData.code === 0) {
+          const resDataData = resData.data
+          if (resDataData.list && resDataData.list.length > 0) {
+            this.rankList = resDataData.list || []
+          } else {
+            this.rankList = []
+          }
+        }
+      })
+    }
+  }
+}
+</script>
 
 <style lang="scss" scoped>
   .ranking {
