@@ -1,6 +1,6 @@
 const router = require('koa-router')()
 // newBlog, updateBlog, delBlog
-const { blogList, getDetail, rankList } = require('../controller/blog')
+const { blogList, getDetail, rankList, getTopicList } = require('../controller/blog')
 const { SuccessModel, ErrorModel } = require('../model/resModel')
 // const loginCheck = require('../middleware/loginCheck')
 
@@ -36,6 +36,12 @@ router.post('/rank', async function (ctx, next) {
   let { type = ''} = body
   const listData = await rankList(type)
   ctx.body = new SuccessModel(listData)
+})
+
+// 4、API：-- 博客专题列表接口
+router.get('/topic', async function (ctx, next) {
+  const data = await getTopicList()
+  ctx.body = new SuccessModel(data)
 })
 
 // router.post('/new', loginCheck, async function (ctx, next) {

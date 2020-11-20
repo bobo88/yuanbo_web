@@ -47,9 +47,17 @@ const rankList = async (type) => {
   }
 }
 
+// 4、API：-- 博客专题列表接口
+const getTopicList = async (id) => {
+  const sql = `SELECT * FROM topictype;`
+  return  {
+    list: await exec(sql)
+  }
+}
+
 // const newBlog = async (blogData = {}) => {
-//   // const { title, content, author } = blogData
-//   const title = xss(blogData.title)
+  //   // const { title, content, author } = blogData
+  //   const title = xss(blogData.title)
 //   const content = xss(blogData.content)
 //   const author = xss(blogData.author)
 //   const createTime = Date.now()
@@ -92,7 +100,8 @@ const rankList = async (type) => {
 module.exports = {
   blogList,
   getDetail,
-  rankList
+  rankList,
+  getTopicList
   // newBlog,
   // updateBlog,
   // delBlog

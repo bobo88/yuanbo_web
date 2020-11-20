@@ -16,9 +16,7 @@
           <el-menu-item index="/program-life">程序人生</el-menu-item>
           <el-submenu index="/topic">
             <template slot="title">专题版块</template>
-            <el-menu-item index="/topic/1">Vue源码</el-menu-item>
-            <el-menu-item index="/topic/2">React源码</el-menu-item>
-            <el-menu-item index="/topic/3">设计模式</el-menu-item>
+            <el-menu-item v-for="(item, index) in topicList" :key="index" :index="'/topic/' + item.id">{{ item.title }}</el-menu-item>
           </el-submenu>
         </el-menu>
       </div>
@@ -30,18 +28,33 @@
 export default {
   data () {
     return {
-      xx: ''
+      topicList: []
     }
   },
   computed: {},
   created () {
-    // xx
+    // 获取博客专题名称列表
+    this.getTopicTypeList()
   },
   mounted () {
     // xx
   },
   methods: {
-    handleSelect () {}
+    handleSelect () {},
+    getTopicTypeList () {
+      this.$axios.get('/api/blog/topic').then((res) => {
+        console.log('/api/blog/topic: --->', res)
+        const resData = res.data
+        if (resData && resData.code === 0) {
+          const resDataData = resData.data
+          if (resDataData.list && resDataData.list.length > 0) {
+            this.topicList = resDataData.list || []
+          } else {
+            this.topicList = []
+          }
+        }
+      })
+    }
   }
 }
 </script>
