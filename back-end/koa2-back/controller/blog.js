@@ -3,18 +3,26 @@ const { exec } = require('../db/mysql')
 
 const blogList = async (type, pageNum) => {
   console.log(type, pageNum)
-  let sql = `select * from blogs where 1=1 `
+  let pageSize = 20;
+  let limitStart = pageSize * (pageNum - 1);
+  let sqlTotal = 'SELECT COUNT(*) as total FROM blogs WHERE 1=1 ';
+  let sql = `SELECT * FROM blogs WHERE 1=1 `
   if (type) {
-    sql += `and typeId=${type} `
+    sql += `AND typeId=${type} `
+    sqlTotal += `AND typeId=${type};`
   }
+  sql += `ORDER BY id DESC `
   if (pageNum) {
-    // sql += `and title like '%${type}%' `
+    sql += `LIMIT ${limitStart}, ${pageSize} `
   }
-  sql += `order by id desc;`
-
-  console.log('sql: ', sql)
+  sql += ';';
+  // console.log('sql: ', sql)
+  let rows = await exec(sqlTotal);
   // 返回promise
-  return await exec(sql)
+  return {
+    total: rows[0].total || 0,
+    list: await exec(sql)
+  }
 }
 
 const getDetail = async (id) => {

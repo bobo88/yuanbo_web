@@ -13,9 +13,11 @@ function exec(sql) {
         reject(err)
         return
       }
+      // console.log(66, result)
       resolve(result)
     })
   })
+  // console.log(88, promise)
   return promise
 }
 
