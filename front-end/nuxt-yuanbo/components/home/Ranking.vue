@@ -6,13 +6,6 @@
         <i></i>
         <a href="#" :title="item.title" target="_blank">{{ item.title }}</a>
       </li>
-      <!-- <li><i></i><a href="#" title="yuanbo-web.com" target="_blank">个人博客yuanbo-web.com</a></li>
-      <li><i></i><a href="#" title="yuanbo-web.com" target="_blank">个人博客yuanbo-web.com</a></li>
-      <li><i></i><a href="#" title="yuanbo-web.com" target="_blank">个人博客yuanbo-web.com</a></li>
-      <li><i></i><a href="#" title="yuanbo-web.com" target="_blank">个人博客yuanbo-web.com</a></li>
-      <li><i></i><a href="#" title="yuanbo-web.com" target="_blank">个人博客yuanbo-web.com</a></li>
-      <li><i></i><a href="#" title="yuanbo-web.com" target="_blank">个人博客yuanbo-web.com</a></li>
-      <li><i></i><a href="#" title="yuanbo-web.com" target="_blank">个人博客yuanbo-web.com</a></li> -->
     </ul>
   </div>
 </template>

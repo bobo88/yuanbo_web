@@ -2,10 +2,10 @@
 const { exec } = require('../db/mysql')
 
 // 1、API：-- 博客列表接口
-const blogList = async (type, pageNum) => {
-  // console.log(type, pageNum)
+const blogList = async (type, pageIndex) => {
+  // console.log(type, pageIndex)
   let pageSize = 20;
-  let limitStart = pageSize * (pageNum - 1);
+  let limitStart = pageSize * (pageIndex - 1);
   let sqlTotal = 'SELECT COUNT(*) as total FROM blogs WHERE 1=1 ';
   let sql = `SELECT * FROM blogs WHERE 1=1 `
   if (type) {
@@ -13,7 +13,7 @@ const blogList = async (type, pageNum) => {
     sqlTotal += `AND typeId=${type};`
   }
   sql += `ORDER BY id DESC `
-  if (pageNum) {
+  if (pageIndex) {
     sql += `LIMIT ${limitStart}, ${pageSize} `
   }
   sql += ';';

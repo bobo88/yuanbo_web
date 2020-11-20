@@ -7,7 +7,7 @@
       <Nuxt />
     </div>
     <!-- 公共底部 -->
-    <bottom></bottom>
+    <bottom class="bottom-box"></bottom>
 
     <a href="#">
       <div class="gotoTop">
@@ -42,6 +42,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  .container {
+    position: relative;
+    z-index: 1;
+    min-height: 100%;
+    padding-bottom: 130px;
+    .bottom-box {
+      position: absolute;
+      z-index: 2;
+      bottom: 0;
+      left: 0;
+    }
+  }
   .main-container {
     margin: 0 auto;
     padding: 20px 0;

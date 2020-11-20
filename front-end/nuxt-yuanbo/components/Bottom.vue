@@ -30,6 +30,7 @@
     .box {
       margin: 0 auto;
       width: 1200px;
+      height: 60px;
       .social {
         line-height: 30px;
         text-align: center;
@@ -59,6 +60,8 @@
         }
       }
       .copyright {
+        height: 20px;
+        line-height: 20px;
         text-align: center;
         a:hover {
           color: #409eff;

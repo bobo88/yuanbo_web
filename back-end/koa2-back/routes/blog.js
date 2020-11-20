@@ -9,7 +9,7 @@ router.prefix('/api/blog')
 // 1、API：-- 博客列表接口
 router.post('/list', async function (ctx, next) {
   const body = ctx.request.body
-  let { type = '', pageNum = '' } = body
+  let { type = '', pageIndex = '' } = body
   // if (ctx.query.isadmin) {
   //   // 管理员界面
   //   if (ctx.session.username === null) {
@@ -20,7 +20,7 @@ router.post('/list', async function (ctx, next) {
   //   // 强制查询自己的博客
   //   author = ctx.session.username
   // }
-  const listData = await blogList(type, pageNum)
+  const listData = await blogList(type, pageIndex)
   ctx.body = new SuccessModel(listData)
 })
 
