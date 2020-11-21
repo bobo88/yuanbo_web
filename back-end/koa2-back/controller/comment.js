@@ -7,7 +7,7 @@ const getListById = async (id) => {
   // 返回promise
   return await exec(sql)
 }
-
+// 添加评论
 const addComment = async (commentData = {}) => {
   const blogId = xss(commentData.blogId)
   const content = xss(commentData.content)
@@ -22,26 +22,23 @@ const addComment = async (commentData = {}) => {
     id: insertData.insertId
   }
 }
-
-// const updateComment = async (id, blogData = {}) => {
-//   // const { title, content } = blogData
-//   const title = xss(blogData.title)
-//   const content = xss(blogData.content)
-//   const sql = `
-//     update comments set title='${title}', content='${content}' where id=${id}
-//   `
-//   const updateData = await exec(sql)
-//   if (updateData.affectedRows > 0) {
-//     return true
-//   }
-//   return false
-// }
-
-const delComment = async (id, author) => {
-  console.log('del blog data..', id)
-  const sql = `
-    DELETE FROM comments WHERE id=${id} AND author='${author}'
-  `
+// 编辑评论
+const editComment = async (topicData = {}) => {
+  const id = xss(topicData.id)
+  const blogId = xss(topicData.blogId)
+  const content = xss(topicData.content)
+  const username = xss(topicData.username)
+  const updateTime = Date.now()
+  const sql = `UPDATE comments SET blogId='${blogId}', content='${content}', username='${username}', updateTime='${updateTime}' WHERE id=${id}`
+  const updateData = await exec(sql)
+  if (updateData.affectedRows > 0) {
+    return true
+  }
+  return false
+}
+// 删除评论
+const deleteComment = async (id) => {
+  const sql = `DELETE FROM comments WHERE id=${id};`
   const deleteData = await exec(sql)
   if (deleteData.affectedRows > 0) {
     return true
@@ -51,7 +48,7 @@ const delComment = async (id, author) => {
 
 module.exports = {
   getListById,
-  addComment
-  // updateComment,
-  // delComment
+  addComment,
+  editComment,
+  deleteComment
 }

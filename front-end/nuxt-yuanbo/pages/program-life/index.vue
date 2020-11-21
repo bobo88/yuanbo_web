@@ -66,7 +66,7 @@ export default {
       }
       this.$axios.post('/api/blog/list', {
         pageIndex: this.pageIndex,
-        type: 2
+        typeId: 2
       }).then((res) => {
         console.log('/api/blog/list: --->', res)
         const resData = res.data

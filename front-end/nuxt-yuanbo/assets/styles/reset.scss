@@ -5,6 +5,9 @@
     color: #409EFF !important;
   }
 }
+.el-loading-mask {
+  // background-color: rgba(255,255,255,.6) !important;
+}
 .el-menu {
   background: #1C2327 !important;
 }
@@ -29,13 +32,27 @@
         border-bottom: 2px solid transparent;
       }
     }
-    .el-submenu .el-submenu__title {
-      height: 50px;
-      line-height: 50px;
-      color: #fff;
-      font-size: 15px;
-      &:hover {
-        color: #409EFF;
+    .el-submenu {
+      .el-submenu__title {
+        height: 50px;
+        line-height: 50px;
+        color: #fff;
+        font-size: 15px;
+        &:hover {
+          color: #409EFF;
+        }
+      }
+      &.is-active {
+        .el-submenu__title {
+          height: 50px;
+          line-height: 50px;
+          color: #409EFF;
+          font-size: 15px;
+          border-bottom: 2px solid transparent;
+          &:hover {
+            color: #409EFF;
+          }
+        }
       }
     }
     .el-menu-item:not(.is-disabled):focus, .el-menu-item:not(.is-disabled):hover {

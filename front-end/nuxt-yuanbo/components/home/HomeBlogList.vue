@@ -4,7 +4,7 @@
       个人博客<span class="hnav fr"><a href="/blog-list" target="_blank">更多</a></span>
     </h2>
     <!-- 列表 -->
-    <ul>
+    <ul v-loading="loading">
       <li v-for="(item, index) in blogList" :key="index">
         <h3 class="blogtitle">
           <a :href="'/blog-list/' + item.id" target="_blank">{{ item.title }}</a>
@@ -33,6 +33,7 @@ export default {
   name: 'BlogListComp',
   data () {
     return {
+      loading: false,
       blogList: [],
       total: 0
     }
@@ -47,6 +48,7 @@ export default {
   },
   methods: {
     getBlogList () {
+      this.loading = true
       this.$axios.post('/api/blog/list').then((res) => {
         console.log('/api/blog/list: --->', res)
         const resData = res.data
@@ -55,11 +57,16 @@ export default {
           if (resDataData.list && resDataData.list.length > 0) {
             this.blogList = resDataData.list || []
             this.total = resDataData.total
+            this.loading = false
           } else {
             this.blogList = []
             this.total = 0
+            this.loading = false
           }
         }
+      }).catch(err => {
+        this.loading = false
+        console.log(err)
       })
     }
   }
@@ -92,7 +99,7 @@ export default {
       }
       .blogtitle {
         margin: 0 0 10px 0;
-        font-size: 18px;
+        font-size: 16px;
         overflow: hidden;
       }
       .blogpic {

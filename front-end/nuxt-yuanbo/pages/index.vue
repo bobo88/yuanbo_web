@@ -5,7 +5,7 @@
       <!-- BANNER -->
       <banner />
       <!-- 博客列表 -->
-      <blog-list />
+      <home-blog-list />
     </div>
 
     <div class="rbox">
@@ -20,13 +20,13 @@
 
 <script>
 import Ranking from '~/components/home/Ranking'
-import BlogList from '~/components/home/BlogList'
+import HomeBlogList from '~/components/home/HomeBlogList'
 import Card from '~/components/home/Card'
 import Banner from '~/components/home/Banner'
 export default {
   components: {
     Ranking,
-    BlogList,
+    HomeBlogList,
     Card,
     Banner
   },
@@ -40,10 +40,7 @@ export default {
     // xx
   },
   mounted () {
-    console.log(12, this)
-    // this.$axios.get('/api/blog/list').then((res) => {
-    //   console.log(res)
-    // })
+    // console.log(12, this)
   },
   methods: {}
 }

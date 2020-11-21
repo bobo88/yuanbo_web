@@ -54,6 +54,9 @@ export default {
     // Doc: https://github.com/nuxt-community/eslint-module
     // '@nuxtjs/eslint-module'
   ],
+  router: {
+    // xxx
+  },
   /*
   ** Nuxt.js modules
   */

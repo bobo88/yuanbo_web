@@ -3,7 +3,7 @@ html, body {
   padding: 0;
   height: 100%;
   -webkit-text-size-adjust: none;
-  font-size: 15px;
+  font-size: 14px;
   background: #f0f2f5;
   font-family: '微软雅黑', Arial, sans-serif;
 }
@@ -129,6 +129,9 @@ input, textarea, select {
     position: static;
     margin-top: 20px;
     text-align: center;
+    display: none !important;
+  }
+  .social {
     display: none !important;
   }
 }

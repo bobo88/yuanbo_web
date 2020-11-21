@@ -4,7 +4,7 @@
     <ul>
       <li v-for="(item, index) in rankList" :key="index">
         <i></i>
-        <a href="#" :title="item.title" target="_blank">{{ item.title }}</a>
+        <a :href="item.href" :title="item.title" target="_blank">{{ item.title }}</a>
       </li>
     </ul>
   </div>
@@ -15,33 +15,35 @@ export default {
   name: 'rankingComp',
   data () {
     return {
-      rankList: [],
       total: 0
     }
   },
-  computed: {},
   created () {
-    // 获取热门博客列表
-    this.getRankList()
+    // 获取热度排行榜列表
+    if (!(this.$store.state.rankList && this.$store.state.rankList.length > 0)) {
+      this.$store.dispatch('getBlogRankList')
+    }
+  },
+  computed: {
+    rankList () {
+      let tempRankList = [].concat(this.$store.state.rankList)
+      return tempRankList.map(i => {
+        if (i.typeId === 1) {
+          i.href = '/blog-list/' + i.id
+        } else if (i.typeId === 2) {
+          i.href = '/program-life/' + i.id
+        } else if (i.typeId === 3) {
+          i.href = '/topic/' + i.topicId + '/' + i.id
+        }
+        return i
+      })
+    }
   },
   mounted () {
     // xx
   },
   methods: {
-    getRankList () {
-      this.$axios.post('/api/blog/rank').then((res) => {
-        console.log('/api/blog/rank: --->', res)
-        const resData = res.data
-        if (resData && resData.code === 0) {
-          const resDataData = resData.data
-          if (resDataData.list && resDataData.list.length > 0) {
-            this.rankList = resDataData.list || []
-          } else {
-            this.rankList = []
-          }
-        }
-      })
-    }
+    // xx
   }
 }
 </script>

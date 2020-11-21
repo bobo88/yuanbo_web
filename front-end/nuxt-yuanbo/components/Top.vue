@@ -28,33 +28,25 @@
 export default {
   data () {
     return {
-      topicList: []
+      // xx: []
     }
   },
-  computed: {},
   created () {
     // 获取博客专题名称列表
-    this.getTopicTypeList()
+    if (!(this.$store.state.topicTypeList && this.$store.state.topicTypeList.length > 0)) {
+      this.$store.dispatch('getTopicTypeList')
+    }
+  },
+  computed: {
+    topicList () {
+      return this.$store.state.topicTypeList
+    }
   },
   mounted () {
     // xx
   },
   methods: {
-    handleSelect () {},
-    getTopicTypeList () {
-      this.$axios.get('/api/blog/topic').then((res) => {
-        console.log('/api/blog/topic: --->', res)
-        const resData = res.data
-        if (resData && resData.code === 0) {
-          const resDataData = resData.data
-          if (resDataData.list && resDataData.list.length > 0) {
-            this.topicList = resDataData.list || []
-          } else {
-            this.topicList = []
-          }
-        }
-      })
-    }
+    handleSelect () {}
   }
 }
 </script>

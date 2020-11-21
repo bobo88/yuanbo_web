@@ -5,7 +5,8 @@
         <div class="mb30">
           <el-breadcrumb separator-class="el-icon-arrow-right">
             <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-            <el-breadcrumb-item>个人博客</el-breadcrumb-item>
+            <el-breadcrumb-item>专题版块</el-breadcrumb-item>
+            <el-breadcrumb-item>{{ topicTypeName }}</el-breadcrumb-item>
           </el-breadcrumb>
         </div>
 
@@ -15,7 +16,7 @@
             v-for="(blogItem, index) in blogList"
             :key="index"
             :timestamp="blogItem.timestamp">
-            <nuxt-link class="article-item" :to="'/blog-list/' + blogItem.id">{{ blogItem.title }}</nuxt-link>
+            <nuxt-link class="article-item" :to="'/topic/' + $nuxt.$route.params.type + '/' + blogItem.id">{{ blogItem.title }}</nuxt-link>
           </el-timeline-item>
         </el-timeline>
 
@@ -35,6 +36,14 @@
 import Ranking from '~/components/home/Ranking'
 import BoPagination from '~/components/common/BoPagination'
 export default {
+  asyncData({isDev, route, store, env, params, query, req, res, redirect, error}) {
+    // console.log(1212)
+    // store.dispatch('getTopicTypeList')
+  },
+  validate ({ params }) {
+    // 必须是number类型
+    return /^\d+$/.test(params.type)
+  },
   components: {
     Ranking,
     BoPagination
@@ -46,7 +55,19 @@ export default {
       total: 0
     }
   },
-  computed: {},
+  computed: {
+    topicTypeName () {
+      if (this.$store.state.topicTypeList && this.$store.state.topicTypeList.length > 0) {
+        let filterArr = this.$store.state.topicTypeList.filter(i => {
+          return parseInt(i.id) === parseInt(this.$nuxt.$route.params.type)
+        })
+        if (filterArr && filterArr.length > 0) {
+          return filterArr[0].title
+        }
+      }
+      return ''
+    }
+  },
   created () {
     // 获取博客列表
     this.getBlogList()
@@ -66,7 +87,8 @@ export default {
       }
       this.$axios.post('/api/blog/list', {
         pageIndex: this.pageIndex,
-        typeId: 1
+        typeId: 3,
+        topicId: parseInt(this.$nuxt.$route.params.type)
       }).then((res) => {
         console.log('/api/blog/list: --->', res)
         const resData = res.data
@@ -80,8 +102,6 @@ export default {
             this.total = 0
           }
         }
-      }).catch(err => {
-        console.log(err)
       })
     }
   }

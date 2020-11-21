@@ -1,7 +1,7 @@
 <template>
   <footer id="footer">
     <div class="box">
-      <div class="social mb10">
+      <div class="social">
         <a class="github" href="https://github.com/bobo88" target="_blank" title="github">
           <img src="~/assets/images/github.png" alt="">
         </a>
@@ -21,9 +21,9 @@
     background: #373D41;
     width: 100%;
     border-top: #409eff 10px solid;
-    padding: 30px 0;
+    padding: 15px 0;
     color: #777;
-    font-size: 14px;
+    font-size: 12px;
     a {
       color: #777;
     }
@@ -34,7 +34,7 @@
       .social {
         line-height: 30px;
         text-align: center;
-        font-size: 14px;
+        font-size: 12px;
         vertical-align: middle;
         .github {
           display: inline-block;
@@ -56,12 +56,12 @@
         b {
           color: #999;
           font-weight: bold;
-          font-size: 14px;
+          font-size: 12px;
         }
       }
       .copyright {
-        height: 20px;
-        line-height: 20px;
+        height: 30px;
+        line-height: 30px;
         text-align: center;
         a:hover {
           color: #409eff;

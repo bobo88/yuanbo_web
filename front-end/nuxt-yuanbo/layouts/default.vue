@@ -46,7 +46,7 @@ export default {
     position: relative;
     z-index: 1;
     min-height: 100%;
-    padding-bottom: 130px;
+    padding-bottom: 100px;
     .bottom-box {
       position: absolute;
       z-index: 2;
