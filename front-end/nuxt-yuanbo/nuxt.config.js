@@ -1,10 +1,11 @@
-
+const CompressionPlugin = require('compression-webpack-plugin');
 export default {
   /*
   ** Nuxt rendering mode
   ** See https://nuxtjs.org/api/configuration-mode
   */
-  mode: 'universal',
+  // mode: 'universal',
+  mode: 'spa',
   /*
   ** Nuxt target
   ** See https://nuxtjs.org/api/configuration-target
@@ -55,7 +56,8 @@ export default {
     // '@nuxtjs/eslint-module'
   ],
   router: {
-    // xxx
+    // base: '/dist',
+    mode: 'hash'
   },
   /*
   ** Nuxt.js modules
@@ -89,6 +91,19 @@ export default {
   */
   build: {
     // transpile: [/^element-ui/],
+    plugins: [
+      new CompressionPlugin({
+        test: /\.js$|\.html$|\.css/, // 匹配文件名
+        threshold: 10240, // 对超过10kb的数据进行压缩
+        deleteOriginalAssets: false // 是否删除原文件
+      })
+    ],
+    optimization: {
+      splitChunks: {
+        minSize: 10000,
+        maxSize: 250000
+      }
+    },
     analyze: true,
     vendor: [],
     maxChunkSize: 300000,

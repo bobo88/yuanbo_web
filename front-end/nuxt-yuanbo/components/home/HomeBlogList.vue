@@ -1,26 +1,26 @@
 <template>
   <div class="bloglist bgcolorF">
     <h2 class="htitle">
-      个人博客<span class="hnav fr"><a href="/blog-list" target="_blank">更多</a></span>
+      个人博客<span class="hnav fr"><a href="/#/blog-list">更多</a></span>
     </h2>
     <!-- 列表 -->
     <ul v-loading="loading">
       <li v-for="(item, index) in blogList" :key="index">
         <h3 class="blogtitle">
-          <a :href="'/blog-list/' + item.id" target="_blank">{{ item.title }}</a>
+          <a :href="'/#/blog-list/' + item.id">{{ item.title }}</a>
         </h3>
         <span class="blogpic imgscale">
-          <a v-if="item % 2 === 0" :href="'/blog-list/' + item.id" :title="item.title"><img src="~/assets/images/blog.png" :alt="item.title"></a>
-          <a v-else :href="'/blog-list/' + item.id" :title="item.title"><img src="~/assets/images/blog2.png" :alt="item.title"></a>
+          <a v-if="item % 2 === 0" :href="'/#/blog-list/' + item.id" :title="item.title"><img src="~/assets/images/blog.png" :alt="item.title"></a>
+          <a v-else :href="'/#/blog-list/' + item.id" :title="item.title"><img src="~/assets/images/blog2.png" :alt="item.title"></a>
         </span>
         <p class="blogtext">{{ item.content }}</p>
         <p class="bloginfo">
           <i class="avatar"><img src="~/assets/images/logo/avatar.png"></i>
           <span>袁波</span>
           <span>{{ item.createtime | dateFormatYyyyMmDd }}</span>
-          <span>【<a href="/blog-list" target="_blank">个人博客</a>】</span>
+          <span>【<a href="/blog-list">个人博客</a>】</span>
         </p>
-        <a :href="'/blog-list/' + item.id" class="viewmore">
+        <a :href="'/#/blog-list/' + item.id" class="viewmore">
           <el-button type="primary" size="mini">阅读更多</el-button>
         </a>
       </li>

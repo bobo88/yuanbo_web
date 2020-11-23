@@ -4,7 +4,7 @@
     <ul>
       <li v-for="(item, index) in rankList" :key="index">
         <i></i>
-        <a :href="item.href" :title="item.title" target="_blank">{{ item.title }}</a>
+        <a :href="item.href" :title="item.title">{{ item.title }}</a>
       </li>
     </ul>
   </div>
@@ -29,11 +29,11 @@ export default {
       let tempRankList = [].concat(this.$store.state.rankList)
       return tempRankList.map(i => {
         if (i.typeId === 1) {
-          i.href = '/blog-list/' + i.id
+          i.href = '/#/blog-list/' + i.id
         } else if (i.typeId === 2) {
-          i.href = '/program-life/' + i.id
+          i.href = '/#/program-life/' + i.id
         } else if (i.typeId === 3) {
-          i.href = '/topic/' + i.topicId + '/' + i.id
+          i.href = '/#/topic/' + i.topicId + '/' + i.id
         }
         return i
       })

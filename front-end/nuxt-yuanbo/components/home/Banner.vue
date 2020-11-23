@@ -11,13 +11,13 @@
     <div class="headline-box">
       <ul>
         <li>
-          <a href="#" title="袁波个人博客-test" target="_blank">
+          <a href="#" title="袁波个人博客-test">
             <img src="~/assets/images/headline.jpg" alt="袁波个人博客-test">
             <span>袁波个人博客-test</span>
           </a>
         </li>
         <li>
-          <a href="#" title="袁波个人博客-test" target="_blank">
+          <a href="#" title="袁波个人博客-test">
             <img src="~/assets/images/headline2.jpg" alt="袁波个人博客-test">
             <span>袁波个人博客-test</span>
           </a>

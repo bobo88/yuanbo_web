@@ -10,6 +10,11 @@ const index = require('./routes/index')
 const blog = require('./routes/blog')
 const comment = require('./routes/comment')
 
+// 开启gzip压缩
+const compress = require('koa-compress');
+const options = { threshold: 2048 };
+app.use(compress(options));
+
 // error handler
 onerror(app)
 
@@ -18,8 +23,10 @@ app.use(bodyparser({
   enableTypes:['json', 'form', 'text']
 }))
 app.use(json())
+app.use(require('koa-static')(__dirname + '/public', {
+  gzip: true
+}))
 app.use(logger())
-app.use(require('koa-static')(__dirname + '/public'))
 
 app.use(views(__dirname + '/views', {
   extension: 'pug'
@@ -27,6 +34,8 @@ app.use(views(__dirname + '/views', {
 
 // logger
 app.use(async (ctx, next) => {
+  // ctx 代表响应 ctx.compress = trus 代表允许压缩
+  ctx.compress = true
   const start = new Date()
   await next()
   const ms = new Date() - start
