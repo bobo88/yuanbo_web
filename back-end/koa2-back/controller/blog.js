@@ -115,6 +115,7 @@ const rankList = async (type) => {
 // 4、API：-- 博客专题列表接口
 const getTopicList = async (id) => {
   const sql = `SELECT * FROM topictype;`
+  console.log(58, sql)
   return  {
     list: await exec(sql)
   }

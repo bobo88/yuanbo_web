@@ -110,6 +110,27 @@ input, textarea, select {
   }
 }
 
+/* 预览 - 文章详情 */
+.ql-editor {
+  word-break: break-word;
+  text-align: justify;
+  h1, h2, h3, h4, h5 {
+    margin: 20px 0;
+  }
+  p {
+    margin: 10px 0;
+    line-height: 30px;
+    font-size: 14px;
+  }
+  img {
+    border: 0;
+    display: block;
+    margin: 15px auto;
+    max-width: 100% !important;
+    height: auto !important;
+  }
+}
+
 .avatar-uploader-icon {
   font-size: 28px;
   color: #666;

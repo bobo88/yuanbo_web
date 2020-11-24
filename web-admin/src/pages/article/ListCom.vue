@@ -1,5 +1,5 @@
 <!--
-  内容：评论管理 - 列表组件
+  内容：文章管理 - 列表组件
   作者：BOBO
   日期： 20190827
 -->
@@ -9,24 +9,54 @@
     <el-table :max-height="$store.state.auth.bodyHight" stripe class="mb10 f12" v-loading="loading" ref="multipleTable"
       border :data="dataList" :empty-text="emptyText" tooltip-effect="dark" style="width:100%;"
       @selection-change="handleSelectionChange" :row-class-name="tableRowClassName">
-      <el-table-column align="center" label="评论ID" width="100">
+      <el-table-column align="center" label="文章ID" width="100">
         <template slot-scope="scope">
           <p v-clipboard:copy="scope.row.id" v-clipboard:success="$copySucc">{{ scope.row.id }}</p>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="所属文章ID" width="100">
+      <el-table-column align="center" label="标题" min-width="100">
         <template slot-scope="scope">
-          <p v-clipboard:copy="scope.row.blogId" v-clipboard:success="$copySucc">{{ scope.row.blogId }}</p>
+          <p v-clipboard:copy="scope.row.title" v-clipboard:success="$copySucc">{{ scope.row.title }}</p>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="昵称">
+      <el-table-column align="center" label="作者">
         <template slot-scope="scope">
-          {{ scope.row.username }}
+          {{ scope.row.author || "BOBO" }}
         </template>
       </el-table-column>
-      <el-table-column align="center" label="评论内容" min-width="150">
+      <el-table-column align="center" label="文章简介" min-width="150">
         <template slot-scope="scope">
-          <p v-clipboard:copy="scope.row.content" v-clipboard:success="$copySucc">{{ scope.row.content }}</p>
+          <el-tooltip class="item" effect="dark" :content="scope.row.brief" placement="top-start">
+            <p class="lh34 ellipsis w100Percent">{{ scope.row.brief }}</p>
+          </el-tooltip>
+        </template>
+      </el-table-column>
+      
+      <el-table-column align="center" label="文章分类" min-width="150">
+        <template slot-scope="scope">
+          <span v-if="+scope.row.typeId === 1">个人博客</span>
+          <span v-else-if="+scope.row.typeId === 2">程序人生</span>
+          <span v-else>专题版块</span>
+        </template>
+      </el-table-column>
+      <el-table-column align="center" label="专题版块分类" width="150">
+        <template slot-scope="scope">
+          {{ scope.row.topicId }}
+        </template>
+      </el-table-column>
+      <el-table-column align="center" label="文章banner图" width="150">
+        <template slot-scope="scope">
+          <img v-if="scope.row.banner" :src="scope.row.banner" width="200" height="100" class="vm">
+        </template>
+      </el-table-column>
+      <el-table-column align="center" label="热度" width="150">
+        <template slot-scope="scope">
+          {{ scope.row.hot }}
+        </template>
+      </el-table-column>
+      <el-table-column align="center" label="来源" width="150">
+        <template slot-scope="scope">
+          {{ scope.row.source }}
         </template>
       </el-table-column>
       <el-table-column align="center" label="创建时间" width="150">
@@ -41,8 +71,10 @@
       </el-table-column>
 
       <!-- 操作 -->
-      <el-table-column key="999" fixed="right" align="center" label="操作" width="120" class-name="opration">
+      <el-table-column key="999" fixed="right" align="center" label="操作" width="150" class-name="opration">
         <template slot-scope="scope">
+          <a href="javascript:;" class="color-link" @click="handlePreview(scope.$index, scope.row)">预览</a>
+          <el-divider direction="vertical"></el-divider>
           <a href="javascript:;" class="color-link" @click="handleEdit(scope.$index, scope.row)">编辑</a>
           <el-divider direction="vertical"></el-divider>
           <a href="javascript:;" class="color-danger" @click="handleDelete(scope.$index, scope.row)">删除</a>
@@ -52,6 +84,20 @@
 
     <!-- 分页组件 -->
     <bo-pagination :data-total="total" @cb="cbPaginationPage"></bo-pagination>
+
+    <el-dialog
+      center
+      title="文章预览"
+      :visible.sync="dialogVisible"
+      width="70%"
+      :before-close="handleClose">
+      <div class="ql-editor">
+        <div v-html="currentBlogContent"></div>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="dialogVisible = false">关闭</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -63,12 +109,28 @@ export default {
   components: {
     BoPagination
   },
+  props: {
+    dataTopic: {
+      type: Array
+    }
+  },
   data () {
     return {
-      dataList: []
+      dataList: [],
+      dialogVisible: false,
+      currentBlogContent: ''
     };
   },
-
+  computed: {
+    formatName (val) {
+      let filterArr = this.dataTopic.filter(i => i.id === parseInt(val))
+      if (filterArr && filterArr.length > 0) {
+        return filterArr[0].title
+      }
+      return ''
+    }
+    
+  },
   methods: {
     // 获取视频列表
     async getDataList (paramsOptions) {
@@ -82,11 +144,11 @@ export default {
       let options = {
         pageIndex: this.pageIndex, // 数值从0开始
         pageSize: this.pageSize,
-        username: this.dataSearch.username || '',
-        blogId: this.dataSearch.blogId || ''
+        typeId: this.dataSearch.typeId || '',
+        topicId: this.dataSearch.topicId || ''
       };
       this.loading = true;
-      let data = await this.Api.allApiEntry('getCommentsByPage', options);
+      let data = await this.Api.allApiEntry('getblogListByPage', options);
       this.loading = false;
       if (parseInt(data.code) === 0) {
         let _data = data.data;
@@ -100,6 +162,10 @@ export default {
       } else {
         this.$message.error(data.message)
       }
+    },
+    handlePreview (index, row) {
+      this.currentBlogContent = row.content;
+      this.dialogVisible = true;
     },
     // 编辑Texture
     handleEdit(index, row) {

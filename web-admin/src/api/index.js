@@ -32,15 +32,41 @@ let Api = {
 		return ajax.post('index/getinfo');
   },
   // ********************************************** 文章管理 ******************************************************************
-	// 获取实习达人列表
-	internGetinfo (optionsData) {
-		return ajax.post('intern/getinfo',optionsData);
-	},
+	// 分页获取文章列表
+	getblogListByPage (optionsData) {
+    return ajax.post('blog/list', optionsData);
+  },
+	// 新增文章
+	addBlog (optionsData) {
+    return ajax.post('blog/add', optionsData);
+  },
+	// 编辑文章
+	updateBlog (optionsData) {
+    return ajax.post('blog/edit', optionsData);
+  },
+	// 删除文章
+	deleteBlog (optionsData) {
+    return ajax.post('blog/delete', optionsData);
+  },
   // ********************************************** 分类管理 ******************************************************************
-	// 获取实习达人列表
-	internGetinfo (optionsData) {
-		return ajax.post('intern/getinfo',optionsData);
-	},
+	// 获取分类列表
+	getTopicsList (optionsData) {
+    return ajax.get('blog/topic/list', {
+			'params':optionsData
+		});
+  },
+	// 新增分类
+	addTopic (optionsData) {
+    return ajax.post('blog/topic/add', optionsData);
+  },
+	// 编辑分类
+	updateTopic (optionsData) {
+    return ajax.post('blog/topic/edit', optionsData);
+  },
+	// 删除分类
+	deleteTopic (optionsData) {
+    return ajax.post('blog/topic/delete', optionsData);
+  },
   // ********************************************** 评论管理 ******************************************************************
 	// 根据ID获取评论列表
 	getCommentsById (optionsData) {

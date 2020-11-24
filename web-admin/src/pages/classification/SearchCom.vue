@@ -1,5 +1,5 @@
 <!--
-  内容：评论管理 - 查询组件
+  内容：分类管理 - 查询组件
   作者：BOBO
   日期： 20190827
 -->
@@ -24,6 +24,7 @@
 
         <div class="mb10">
           <el-button size="mini" @click="search" type="primary" plain class="mb10">搜索</el-button>
+          <el-button size="mini" @click="add" type="success" class="mb10">新增</el-button>
         </div>
       </div>
     </el-drawer>
@@ -47,8 +48,11 @@
           username: this.username,
           blogId: this.blogId
         };
-
         this.$emit('cbSearch', options);
+        this.close();
+      },
+      add () {
+        this.$emit('cbAdd');
         this.close();
       }
     }

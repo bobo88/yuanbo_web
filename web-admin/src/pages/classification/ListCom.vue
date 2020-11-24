@@ -1,5 +1,5 @@
 <!--
-  内容：评论管理 - 列表组件
+  内容：分类管理 - 列表组件
   作者：BOBO
   日期： 20190827
 -->
@@ -9,24 +9,19 @@
     <el-table :max-height="$store.state.auth.bodyHight" stripe class="mb10 f12" v-loading="loading" ref="multipleTable"
       border :data="dataList" :empty-text="emptyText" tooltip-effect="dark" style="width:100%;"
       @selection-change="handleSelectionChange" :row-class-name="tableRowClassName">
-      <el-table-column align="center" label="评论ID" width="100">
+      <el-table-column align="center" label="分类ID" width="100">
         <template slot-scope="scope">
           <p v-clipboard:copy="scope.row.id" v-clipboard:success="$copySucc">{{ scope.row.id }}</p>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="所属文章ID" width="100">
+      <el-table-column align="center" label="名称" width="100">
         <template slot-scope="scope">
-          <p v-clipboard:copy="scope.row.blogId" v-clipboard:success="$copySucc">{{ scope.row.blogId }}</p>
+          <p v-clipboard:copy="scope.row.title" v-clipboard:success="$copySucc">{{ scope.row.title }}</p>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="昵称">
+      <el-table-column align="center" label="描述">
         <template slot-scope="scope">
-          {{ scope.row.username }}
-        </template>
-      </el-table-column>
-      <el-table-column align="center" label="评论内容" min-width="150">
-        <template slot-scope="scope">
-          <p v-clipboard:copy="scope.row.content" v-clipboard:success="$copySucc">{{ scope.row.content }}</p>
+          {{ scope.row.description }}
         </template>
       </el-table-column>
       <el-table-column align="center" label="创建时间" width="150">
@@ -51,18 +46,18 @@
     </el-table>
 
     <!-- 分页组件 -->
-    <bo-pagination :data-total="total" @cb="cbPaginationPage"></bo-pagination>
+    <!-- <bo-pagination :data-total="total" @cb="cbPaginationPage"></bo-pagination> -->
   </div>
 </template>
 
 <script>
-import BoPagination from '@/components/common/BoPagination';
+// import BoPagination from '@/components/common/BoPagination';
 import {CustomListComConfig} from '@/components/mixins/listComIndex'
 export default {
   mixins: [CustomListComConfig],
-  components: {
-    BoPagination
-  },
+  // components: {
+  //   BoPagination
+  // },
   data () {
     return {
       dataList: []
@@ -70,23 +65,23 @@ export default {
   },
 
   methods: {
-    // 获取视频列表
+    // 获取列表
     async getDataList (paramsOptions) {
-      if (paramsOptions) {
-        this.pageIndex = paramsOptions.pageIndex;
-        this.pageSize = paramsOptions.pageSize;
-      } else {
-        this.pageIndex = 1;
-        this.pageSize = 20;
-      }
-      let options = {
-        pageIndex: this.pageIndex, // 数值从0开始
-        pageSize: this.pageSize,
-        username: this.dataSearch.username || '',
-        blogId: this.dataSearch.blogId || ''
-      };
+      // if (paramsOptions) {
+      //   this.pageIndex = paramsOptions.pageIndex;
+      //   this.pageSize = paramsOptions.pageSize;
+      // } else {
+      //   this.pageIndex = 1;
+      //   this.pageSize = 20;
+      // }
+      // let options = {
+      //   pageIndex: this.pageIndex, // 数值从0开始
+      //   pageSize: this.pageSize,
+      //   username: this.dataSearch.username || '',
+      //   blogId: this.dataSearch.blogId || ''
+      // };
       this.loading = true;
-      let data = await this.Api.allApiEntry('getCommentsByPage', options);
+      let data = await this.Api.allApiEntry('getTopicsList', {});
       this.loading = false;
       if (parseInt(data.code) === 0) {
         let _data = data.data;
@@ -116,7 +111,7 @@ export default {
         let options = {
           id: row.id
         };
-        this.Api.allApiEntry('deleteComment', options).then((data) => {
+        this.Api.allApiEntry('deleteTopic', options).then((data) => {
           if (parseInt(data.code) === 0) {
             if (data.data) {
               this.$message.success('操作成功！');
