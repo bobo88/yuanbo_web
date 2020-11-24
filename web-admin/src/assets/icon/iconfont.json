@@ -1,0 +1,170 @@
+{
+  "id": "1821214",
+  "name": "transsnet-admin",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "6367298",
+      "name": "Y",
+      "font_class": "Y",
+      "unicode": "e62b",
+      "unicode_decimal": 58923
+    },
+    {
+      "icon_id": "15056491",
+      "name": "太阳",
+      "font_class": "taiyang",
+      "unicode": "e604",
+      "unicode_decimal": 58884
+    },
+    {
+      "icon_id": "1027115",
+      "name": "search",
+      "font_class": "search",
+      "unicode": "e661",
+      "unicode_decimal": 58977
+    },
+    {
+      "icon_id": "9626877",
+      "name": "活动",
+      "font_class": "huodong1",
+      "unicode": "e870",
+      "unicode_decimal": 59504
+    },
+    {
+      "icon_id": "1148898",
+      "name": "招聘",
+      "font_class": "zhaopin",
+      "unicode": "e688",
+      "unicode_decimal": 59016
+    },
+    {
+      "icon_id": "1876360",
+      "name": "招聘中心",
+      "font_class": "zhaopinzhongxin1",
+      "unicode": "e67c",
+      "unicode_decimal": 59004
+    },
+    {
+      "icon_id": "11327570",
+      "name": "关闭",
+      "font_class": "guanbi",
+      "unicode": "e99e",
+      "unicode_decimal": 59806
+    },
+    {
+      "icon_id": "1831579",
+      "name": "招聘中心",
+      "font_class": "zhaopinzhongxin",
+      "unicode": "e638",
+      "unicode_decimal": 58936
+    },
+    {
+      "icon_id": "553211",
+      "name": "行业",
+      "font_class": "xingye",
+      "unicode": "e61e",
+      "unicode_decimal": 58910
+    },
+    {
+      "icon_id": "2767897",
+      "name": "新闻",
+      "font_class": "xinwen",
+      "unicode": "e610",
+      "unicode_decimal": 58896
+    },
+    {
+      "icon_id": "7404290",
+      "name": "公司",
+      "font_class": "gongsi",
+      "unicode": "e769",
+      "unicode_decimal": 59241
+    },
+    {
+      "icon_id": "1037680",
+      "name": "企业文化",
+      "font_class": "qiyewenhua",
+      "unicode": "e613",
+      "unicode_decimal": 58899
+    },
+    {
+      "icon_id": "1149389",
+      "name": "风采",
+      "font_class": "fengcai",
+      "unicode": "e6bc",
+      "unicode_decimal": 59068
+    },
+    {
+      "icon_id": "1486819",
+      "name": "活动",
+      "font_class": "huodong",
+      "unicode": "e62a",
+      "unicode_decimal": 58922
+    },
+    {
+      "icon_id": "4276971",
+      "name": "办公桌",
+      "font_class": "bangongzhuo",
+      "unicode": "e62e",
+      "unicode_decimal": 58926
+    },
+    {
+      "icon_id": "8288852",
+      "name": "箭头",
+      "font_class": "jiantou",
+      "unicode": "e84f",
+      "unicode_decimal": 59471
+    },
+    {
+      "icon_id": "688166",
+      "name": "T",
+      "font_class": "t",
+      "unicode": "e7b9",
+      "unicode_decimal": 59321
+    },
+    {
+      "icon_id": "587637",
+      "name": "资料",
+      "font_class": "ziliao",
+      "unicode": "e641",
+      "unicode_decimal": 58945
+    },
+    {
+      "icon_id": "695136",
+      "name": "更多 小",
+      "font_class": "gengduoxiao",
+      "unicode": "e635",
+      "unicode_decimal": 58933
+    },
+    {
+      "icon_id": "1662822",
+      "name": "首页",
+      "font_class": "shouye",
+      "unicode": "e603",
+      "unicode_decimal": 58883
+    },
+    {
+      "icon_id": "7287156",
+      "name": "侧边栏弹出",
+      "font_class": "cebianlandanchu",
+      "unicode": "e60c",
+      "unicode_decimal": 58892
+    },
+    {
+      "icon_id": "7287157",
+      "name": "侧边栏收缩",
+      "font_class": "cebianlanshousuo",
+      "unicode": "e611",
+      "unicode_decimal": 58897
+    },
+    {
+      "icon_id": "10194310",
+      "name": "管理",
+      "font_class": "guanli",
+      "unicode": "e65b",
+      "unicode_decimal": 58971
+    }
+  ]
+}

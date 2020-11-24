@@ -1,0 +1,221 @@
+// .el-form-item input,
+// .el-dialog__body input,
+// .el-dialog__body .el-input.is-disabled input {
+//   // padding: 0 4px;
+//   height: 40px !important;
+// }
+
+.el-input .el-input__inner {
+  font-size: 12px;
+}
+
+/* 暗黑模式 */
+.left-box{
+  &.dark {
+    .el-menu {
+      background: #001529 !important;
+    }
+    .el-menu-item.is-active {
+      background: #001529 !important;
+    }
+    .el-menu-item, .el-submenu__title {
+      height: 46px;
+      line-height: 46px;
+      color: hsla(0,0%,100%,.65) !important;
+      background-color: #001529 !important;
+    }
+    .el-submenu__title:focus, .el-submenu__title:hover, .el-menu-item:focus, .el-menu-item:hover {
+      color: #fff !important;
+      background-color: #001529 !important;
+    }
+    .el-menu-item {
+      min-width: auto;
+  
+      &.is-active {
+        color: #fff !important;
+        background-color: #1890ff !important;
+        border-right: none !important;
+      }
+    }
+  }
+}
+
+.left {
+  .el-menu-item, .el-submenu__title {
+    height: 46px;
+    line-height: 46px;
+  }
+  .el-submenu__title:focus, .el-submenu__title:hover {
+    background-color: #e6f7ff !important;
+  }
+  .el-menu-item:focus, .el-menu-item:hover {
+    background-color: #e6f7ff !important;
+  }
+  .el-menu-item {
+    min-width: auto;
+
+    &.is-active {
+      color: #1890ff;
+      background-color: #e6f7ff !important;
+      border-right: 3px solid #1890ff;
+    }
+  }
+
+  .el-submenu {
+    .el-menu-item {
+      margin-bottom: 2px;
+    }
+  }
+
+  .el-submenu__icon-arrow {
+    right: 10px;
+  }
+}
+
+.search-box .el-select .el-input input {
+  width: 190px;
+}
+
+.location-modal .el-dialog__body .el-input .el-input__inner {
+  font-size: 12px;
+  width: 100px;
+}
+
+.search-box {
+  padding-top: 8px;
+}
+
+.search-box input,
+.cell input {
+  padding: 0 4px;
+  height: 30px;
+}
+
+.search-box .el-form-item {
+  margin-bottom: 0;
+}
+
+.el-button {
+  height: 30px;
+  padding: 4px 20px;
+}
+
+.el-dialog__body {
+  padding: 10px 20px 10px;
+}
+
+.el-date-editor .el-range-separator {
+  width: 6%;
+}
+
+.pagination-box {
+  margin: 16px 0;
+  text-align: center;
+}
+
+.el-form-item {
+  margin-bottom: 10px;
+}
+
+.form-box .el-form-item {
+  margin-bottom: 20px;
+}
+
+.form-box .el-select .el-input {
+  font-size: 12px;
+  padding: 0;
+}
+.form-box .el-select .el-input__inner {
+  height: 32px;
+
+}
+.el-menu {
+  border: none;
+}
+
+.el-form-item__label, .el-radio__label {
+  line-height: 30px;
+  font-size: 12px;
+}
+
+.el-form-item__content {
+  line-height: 30px;
+}
+.el-dialog .el-dialog__body .avatar-uploader{
+  width: 80px;
+  height: 80px;
+}
+.el-table__body .avatar-uploader .el-upload {
+  width: 60px;
+  height: 60px;
+}
+
+.el-table__body .avatar-uploader .el-upload .avator {
+  width: 58px;
+  height: 58px;
+}
+.el-table__body .avatar-uploader .avatar-uploader-icon {
+  font-size: 28px;
+  color: #666;
+  width: 60px;
+  height: 60px;
+  line-height: 60px !important;
+  text-align: center;
+}
+.form-box .button-item.el-button {
+  margin-left: 0;
+}
+.form-box .el-button {
+  font-size: 12px;
+}
+.el-textarea__inner{
+  padding: 6px;
+}
+.form-box .el-textarea__inner {
+  padding: 4px;
+}
+
+.uploader-cover-big, .uploader-cover-big .el-upload , .uploader-cover-big .avatar-uploader-icon{
+  width: 140px;
+  height: 140px;
+  line-height: 136px !important;
+}
+.icon-uploader, .icon-uploader .el-upload , .icon-uploader .avatar-uploader-icon, .icon-uploader .avatar{
+  width: 60px;
+  height: 60px;
+  line-height: 56px !important;
+  display: inline-block;
+}
+.loading-reset .el-loading-spinner {
+  top: 0;
+  margin-top: 0;
+}
+.top .el-button {
+  height: 30px;
+  padding: 4px 20px;
+}
+
+.banner-dialog .input-item {
+  width: 300px;
+}
+
+.el-table .blue {
+  background: rgb(155, 155, 229);
+}
+
+.el-table .green {
+  background: rgb(169, 233, 169);
+}
+.el-table .yellow {
+  background: rgb(245, 245, 176);
+}
+.el-table .white {
+  background: white;
+}
+// .el-table .red {
+//   background: red;
+// }
+
+.el-table   .el-table__body  .blue:hover>td{ background: none!important; }
+.el-table   .el-table__body  .green:hover>td{ background: none!important; }
+.el-table   .el-table__body  .yellow:hover>td{ background: none!important; }

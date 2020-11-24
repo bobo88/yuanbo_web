@@ -5,10 +5,12 @@ const json = require('koa-json')
 const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
+const session = require('koa-generic-session')
 
 const index = require('./routes/index')
 const blog = require('./routes/blog')
 const comment = require('./routes/comment')
+const user = require('./routes/user')
 
 // 开启gzip压缩
 const compress = require('koa-compress');
@@ -42,10 +44,26 @@ app.use(async (ctx, next) => {
   console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
 })
 
+// session配置
+app.keys = ['bobo_102288#']
+app.use(session({
+  // 配置cookie
+  cookie: {
+    path: '/',
+    httpOnly: true,
+    maxAge: 24 * 60 * 60 * 1000
+  }
+  // // 配置 redis
+  // store: redisStore({
+  //   all: '127.0.0.1:6379'
+  // })
+}))
+
 // routes
 app.use(index.routes(), index.allowedMethods())
 app.use(blog.routes(), blog.allowedMethods())
 app.use(comment.routes(), comment.allowedMethods())
+app.use(user.routes(), user.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {
