@@ -16,9 +16,9 @@
             <el-dropdown-item>
               <el-button class="f14" type="text" size="small" @click="changeMode"><span :class="{'currentMode': MODE ==='bright'}">{{ $t('message.Brightmode') }}</span> / <span :class="{'currentMode': MODE ==='dark'}">{{ $t('message.Darkmode') }}</span></el-button>
             </el-dropdown-item>
-            <el-dropdown-item>
+            <!-- <el-dropdown-item>
               <el-button class="f14" type="text" size="small" @click="changeLanguage"><span :class="{'currentLang': $i18n.locale ==='en'}">English</span> / <span :class="{'currentLang': $i18n.locale ==='zh'}">简体中文</span></el-button>
-            </el-dropdown-item>
+            </el-dropdown-item> -->
             <el-dropdown-item>
               <el-button class="f14" type="text" size="small" @click="signOut">Logout</el-button>
             </el-dropdown-item>
@@ -94,7 +94,7 @@ export default {
 				this.$store.commit(this.Constant.DELETE_LOGIN_DATA);
         // this.$localStore.remove('userAuthority');
         // this.$localStore.remove('authCountryScope');
-        // this.$localStore.remove('token');
+        this.$localStore.remove('token');
         this.$router.push({
           'name': 'login',
           'params': { 'urlType': 0 }

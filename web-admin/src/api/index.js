@@ -30,7 +30,38 @@ let Api = {
    */
 	getinfoIndex () {
 		return ajax.post('index/getinfo');
+  },
+  // ********************************************** 文章管理 ******************************************************************
+	// 获取实习达人列表
+	internGetinfo (optionsData) {
+		return ajax.post('intern/getinfo',optionsData);
 	},
+  // ********************************************** 分类管理 ******************************************************************
+	// 获取实习达人列表
+	internGetinfo (optionsData) {
+		return ajax.post('intern/getinfo',optionsData);
+	},
+  // ********************************************** 评论管理 ******************************************************************
+	// 根据ID获取评论列表
+	getCommentsById (optionsData) {
+    return ajax.get('comment/list', {
+			'params':optionsData
+		});
+  },
+	// 根据分页获取评论列表
+	getCommentsByPage (optionsData) {
+    return ajax.post('comment/list', optionsData);
+  },
+	// 编辑评论
+	updateComment (optionsData) {
+    return ajax.post('comment/edit', optionsData);
+  },
+	// 删除评论
+	deleteComment (optionsData) {
+    return ajax.post('comment/delete', optionsData);
+  },
+  
+  // ********************************************** 其他 ******************************************************************
 	//获取实习达人列表
 	internGetinfo (optionsData) {
 		return ajax.post('intern/getinfo',optionsData);

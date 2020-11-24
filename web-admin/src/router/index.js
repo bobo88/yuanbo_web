@@ -13,24 +13,6 @@ import Mainer from '../pages/Mainer';
 // 首页
 import Home from '../pages/home/Home';
 
-// 企业文化
-import CorporateCulture from '../pages/corporateCulture/index';
-import OfficeEnvironment from '../pages/corporateCulture/OfficeEnvironment';
-import Employees from '../pages/corporateCulture/Employees';
-import OversealLife from '../pages/corporateCulture/OversealLife';
-
-// 岗位管理
-import Career from '../pages/career/index';
-import JobOpenings from '../pages/career/JobOpenings';
-import ClosedJobs from '../pages/career/ClosedJobs';
-import OprateJob from '../pages/career/OprateJob';
-// 新闻中心
-import NewsContents from '../pages/newsContents/index';
-import NewsList from '../pages/newsContents/NewsList';
-// import CompanyNews from '../pages/newsContents/CompanyNews';
-// import IndustryNews from '../pages/newsContents/IndustryNews';
-import OprateNews from '../pages/newsContents/OprateNews';
-
 // ================================================================================
 // 基础模块
 /**
@@ -59,93 +41,24 @@ const routes = [
 				'name': 'Home',
 				'component': Home
       },
-      // 企业文化
+      // 文章管理
 			{
-				'path': '/corporate-culture',
-				'component': CorporateCulture,
-				'name': 'CorporateCulture',
-				'redirect': '/corporate-culture/office-environment',
-				'children': [
-          // 办公环境
-          {
-            path: 'office-environment',
-            name: 'OfficeEnvironment',
-            component: OfficeEnvironment
-          },
-          // 员工活动
-          {
-            path: 'employees',
-            name: 'Employees',
-            component: Employees
-          },
-          // 海外风采
-          {
-            path: 'overseal-life',
-            name: 'OversealLife',
-            component: OversealLife
-          }
-        ]
+				'path': '/article-management',
+				'component': () => import(/* webpackChunkName: "A" */ '../pages/article/Index.vue'),
+				'name': 'ArticleManagement'
       },
-      // 职业生涯
+      // 分类管理
 			{
-				'path': '/career',
-				'name': 'Career',
-        'component': Career,
-        'redirect': '/career/job-openings',
-				'children': [
-          // 职位空缺
-          {
-            path: 'job-openings',
-            name: 'JobOpenings',
-            component: JobOpenings
-          },
-          // 职位停招
-          {
-            path: 'closed-jobs',
-            name: 'ClosedJobs',
-            component: ClosedJobs
-          },
-          // 职位详情
-          {
-            path: 'job-detail',
-            name: 'OprateJob',
-            component: OprateJob
-          }
-        ]
-			},
-      // 新闻中心
+				'path': '/classification-management',
+				'component': () => import(/* webpackChunkName: "B" */ '../pages/classification/Index.vue'),
+				'name': 'ClassificationManagement'
+      },
+      // 评论管理
 			{
-				'path': '/news',
-				'name': 'NewsContents',
-        'component': NewsContents,
-        'redirect': '/news/news-list',
-				'children': [
-          // 公司新闻
-          {
-            path: 'news-list',
-            name: 'NewsList',
-            component: NewsList
-          },
-          // // 公司新闻
-          // {
-          //   path: 'company-news',
-          //   name: 'CompanyNews',
-          //   component: CompanyNews
-          // },
-          // // 行业新闻
-          // {
-          //   path: 'industry-news',
-          //   name: 'IndustryNews',
-          //   component: IndustryNews
-          // },
-          // 编辑OR新增新闻
-          {
-            path: 'oprate-news',
-            name: 'OprateNews',
-            component: OprateNews
-          }
-        ]
-			}
+				'path': '/comment-management',
+				'component': () => import(/* webpackChunkName: "C" */ '../pages/comment/Index.vue'),
+				'name': 'CommentManagement'
+      }
 		]
 	},
 

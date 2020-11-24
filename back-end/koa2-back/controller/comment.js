@@ -7,6 +7,36 @@ const getListById = async (id) => {
   // 返回promise
   return await exec(sql)
 }
+const getListByPage = async (blogData = {}) => {
+  const {pageIndex, blogId} = blogData;
+  const username = xss(blogData.username)
+  let pageSize = 20;
+  let limitStart = pageSize * (pageIndex - 1);
+  let sqlTotal = 'SELECT COUNT(*) as total FROM comments WHERE 1=1 ';
+  let sql = `SELECT * FROM comments WHERE 1=1 `
+  if (username) {
+    sql += `AND username="${username}" `
+    sqlTotal += `AND username="${username}" `
+  }
+  if (blogId) {
+    sql += `AND blogId=${blogId} `
+    sqlTotal += `AND blogId=${blogId} `
+  }
+  sql += `ORDER BY id DESC `
+  if (pageIndex) {
+    sql += `LIMIT ${limitStart}, ${pageSize} `
+  } else {
+    sql += `LIMIT 0, 10 `
+  }
+  sql += ';';
+  sqlTotal += ';';
+  // console.log('sql: ', sql)
+  let rows = await exec(sqlTotal);
+  return {
+    total: rows[0].total || 0,
+    list: await exec(sql)
+  }
+}
 // 添加评论
 const addComment = async (commentData = {}) => {
   const blogId = xss(commentData.blogId)
@@ -48,6 +78,7 @@ const deleteComment = async (id) => {
 
 module.exports = {
   getListById,
+  getListByPage,
   addComment,
   editComment,
   deleteComment

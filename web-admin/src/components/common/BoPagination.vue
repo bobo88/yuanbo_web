@@ -4,15 +4,14 @@
 -->
 <template>
   <div class="bo-pagination tr mb10">
+      <!-- @size-change="handleSizeChange" -->
     <el-pagination
       small
-      layout="total, sizes, pager, prev, next, jumper"
+      layout="total, pager, prev, next, jumper"
       :prev-text="$t('message.prevPage')"
       :next-text="$t('message.nextPage')"
       @current-change="handleCurrentChange"
-      @size-change="handleSizeChange"
       :current-page="pageIndex"
-      :page-sizes="[5, 10, 20, 25, 50]"
       :page-size="dataSize ? dataSize : pageSize"
       :total="dataTotal">
     </el-pagination>
@@ -27,7 +26,7 @@
       return {
         total: 0,
         pageIndex: 1,
-        pageSize: 10
+        pageSize: 20
       }
     },
     watch: {

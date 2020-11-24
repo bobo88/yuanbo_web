@@ -621,6 +621,42 @@ input::-ms-inner-spin-button {
   display: flex;
   justify-content: center;
   width: 100%;
-  padding:30px  20px 0px;
+  padding: 10px 20px 0px;
+}
+
+// 提示
+.tips {
+  height: 20px;
+  line-height: 20px;
+  color: #999;
+  font-size: 12px;
+
+  .icon-tips {
+    color: #f60;
+    font-size: 16px;
+  }
+}
+
+.icon-fanhui {
+  font-size: 30px;
+  color: #409EFF;
+  cursor: pointer;
+}
+
+// 主体 面包屑下面的search组件
+.tit {
+  display: inline-block;
+  width: 100px;
+  word-break: break-word;
+}
+.tc-tit {
+  display: inline-block;
+  width: 125px;
+  line-height: 20px;
+  vertical-align: middle;
+}
+// 右侧搜索框
+.search-cont {
+  padding: 10px;
 }
 

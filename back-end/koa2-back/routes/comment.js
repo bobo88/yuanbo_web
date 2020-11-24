@@ -1,6 +1,5 @@
 const router = require('koa-router')()
-// addComment, updateComment, delComment
-const { getListById, addComment, editComment, deleteComment } = require('../controller/comment')
+const { getListById, getListByPage, addComment, editComment, deleteComment } = require('../controller/comment')
 const { SuccessModel, ErrorModel } = require('../model/resModel')
 const loginCheck = require('../middleware/loginCheck')
 
@@ -10,6 +9,16 @@ router.prefix('/api/comment')
 router.get('/list', async function (ctx, next) {
   const data = await getListById(ctx.query.id)
   ctx.body = new SuccessModel(data)
+})
+// 分页查询所有 评论列表
+router.post('/list', async function (ctx, next) {
+  const body = ctx.request.body
+  if (!body.pageIndex) {
+    ctx.body = new ErrorModel('字段缺失')
+  } else {
+    const data = await getListByPage(body)
+    ctx.body = new SuccessModel(data)
+  }
 })
 // 添加评论
 router.post('/add', async function (ctx, next) {
@@ -22,7 +31,7 @@ router.post('/add', async function (ctx, next) {
   }
 })
 // 编辑评论
-router.post('/edit', async function (ctx, next) {
+router.post('/edit', loginCheck, async function (ctx, next) {
   const body = ctx.request.body
   if (!body.id || !body.blogId || !body.content) {
     ctx.body = new ErrorModel('字段缺失')
@@ -36,7 +45,7 @@ router.post('/edit', async function (ctx, next) {
   }
 })
 // 删除评论
-router.post('/delete', async function (ctx, next) {
+router.post('/delete', loginCheck, async function (ctx, next) {
   const body = ctx.request.body
   let { id = ''} = body
   if (!body.id) {
@@ -50,24 +59,5 @@ router.post('/delete', async function (ctx, next) {
     }
   }
 })
-
-// router.post('/update', loginCheck, async function (ctx, next) {
-//   const val = await updateBlog(ctx.query.id, ctx.request.body)
-//   if (val) {
-//     ctx.body = new SuccessModel()
-//   } else {
-//     ctx.body = new ErrorModel('更新博客失败')
-//   }
-// })
-
-// router.post('/del', loginCheck, async function (ctx, next) {
-//   const author = ctx.session.username
-//   const data = await delBlog(ctx.query.id, author)
-//   if (val) {
-//     ctx.body = new SuccessModel()
-//   } else {
-//     ctx.body = new ErrorModel('删除博客失败')
-//   }
-// })
 
 module.exports = router

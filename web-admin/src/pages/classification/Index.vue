@@ -1,10 +1,10 @@
 <!--
-  内容：企业文化
+  内容：新闻中心
   作者：BOBO
   日期： 20200515
 -->
 <template>
-  <div class="corporateCulture">
+  <div class="news">
     <transition name="fade" mode="out-in">
       <router-view/>
     </transition>
@@ -13,7 +13,7 @@
 
 <script>
   export default {
-    name: 'corporateCulture',
+    name: 'news',
     data () {
       return {
       }

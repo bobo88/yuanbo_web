@@ -52,194 +52,60 @@
 <script>
 	import MenuTitle from './MenuTitle'
 	export default {
-		'name': 'left',
+		name: 'left',
 		props: ['dataShort'],
 		components: {
 			MenuTitle
 		},
 		data () {
 			return {
-				'title': this.Config.TITLE,
-				'userName': '',
-				'formalDataAuthority': false,
-				'formalAuthority': false,
-				'internAuthority': false,
-				'homeAuthority': false,
-				'menuPerms':[],
-				'linkData': [
+				title: this.Config.TITLE,
+				userName: '',
+				formalDataAuthority: false,
+				formalAuthority: false,
+				internAuthority: false,
+				homeAuthority: false,
+				menuPerms:[],
+				linkData: [
 					{
-						'sort': this.$t('message.home'),
-						'url': '/home',
-						'icon': 'icon-shouye',
-						'showType':  'MENU_INDEX'
+						sort: '首页',
+						url: '/home',
+						icon: 'icon-shouye'
 					},
 					{
-						'sort': this.$t('message.CorporateCulture'),
-						'url': '/corporate-culture',
-						'icon': 'icon-qiyewenhua',
-						'showType': 'MENU_FORMAL',
-						'sortChild': [
-							{
-								'sort': this.$t('message.OfficeEnvironment'),
-								'url': '/corporate-culture/office-environment',
-								'icon': 'icon-bangongzhuo',
-								'showType':'SEC_MENU_FORMAL_INFO'
-							},
-							{
-								'sort': this.$t('message.Employees'),
-								'url': '/corporate-culture/employees',
-								'icon': 'icon-huodong1',
-								'showType':'SEC_MENU_FORMAL_DATA'
-							},
-							{
-								'sort': this.$t('message.OversealLife'),
-								'url': '/corporate-culture/overseal-life',
-								'icon': 'icon-fengcai',
-								'showType':'SEC_MENU_FORMAL_DATA'
-							}
-						]
+						sort: '文章管理',
+						url: '/article-management',
+						icon: 'icon-qiyewenhua'
 					},
 					{
-						'sort': this.$t('message.JobManagement'),
-						'url': '/career',
-						'icon': 'icon-zhaopinzhongxin1',
-						'showType': 'MENU_FORMAL',
-						'sortChild': [
-							{
-								'sort': this.$t('message.JobOpenings'),
-								'url': '/career/job-openings',
-								'icon': 'icon-zhaopin',
-								'showType':'SEC_MENU_FORMAL_INFO'
-							},
-							{
-								'sort': this.$t('message.ClosedJobs'),
-								'url': '/career/closed-jobs',
-								'icon': 'icon-guanbi',
-								'showType':'SEC_MENU_FORMAL_DATA'
-							}
-						]
+						sort: '分类管理',
+						url: '/classification-management',
+						icon: 'icon-huodong'
 					},
 					{
-						'sort': this.$t('message.NewsContents'),
-						'url': '/news',
-						'icon': 'icon-xinwen',
-						'showType': 'MENU_FORMAL',
-						'sortChild': [
-							{
-								'sort': this.$t('message.NewsList'),
-								'url': '/news/news-list',
-								'icon': 'icon-gongsi',
-								'showType':'SEC_MENU_FORMAL_INFO'
-							}
-							// {
-							// 	'sort': this.$t('message.CompanyNews'),
-							// 	'url': '/news/company-news',
-							// 	'icon': 'icon-gongsi',
-							// 	'showType':'SEC_MENU_FORMAL_INFO'
-							// },
-							// {
-							// 	'sort': this.$t('message.IndustryNews'),
-							// 	'url': '/news/industry-news',
-							// 	'icon': 'icon-xingye',
-							// 	'showType':'SEC_MENU_FORMAL_DATA'
-							// }
-						]
+						sort: '评论管理',
+						url: '/comment-management',
+						icon: 'icon-fengcai'
 					}
+					// {
+					// 	'sort': this.$t('message.NewsContents'),
+					// 	'url': '/news',
+					// 	'icon': 'icon-xinwen',
+					// 	'showType': 'MENU_FORMAL',
+					// 	'sortChild': [
+					// 		{
+					// 			'sort': this.$t('message.NewsList'),
+					// 			'url': '/news/news-list',
+					// 			'icon': 'icon-gongsi',
+					// 			'showType':'SEC_MENU_FORMAL_INFO'
+					// 		}
+					// 	]
+					// }
 				]
 			};
 		},
-		mounted () {
-			this.menuPerms = this.$localStore.get('userAuthority');
-		},
-		'watch': {
-			'$i18n.locale': function () {
-				this.linkData = [
-					{
-						'sort': this.$t('message.home'),
-						'url': '/home',
-						'icon': 'icon-shouye',
-						'showType':  'MENU_INDEX'
-					},
-					{
-						'sort': this.$t('message.CorporateCulture'),
-						'url': '/corporate-culture',
-						'icon': 'icon-qiyewenhua',
-						'showType': 'MENU_FORMAL',
-						'sortChild': [
-							{
-								'sort': this.$t('message.OfficeEnvironment'),
-								'url': '/corporate-culture/office-environment',
-								'icon': 'icon-bangongzhuo',
-								'showType':'SEC_MENU_FORMAL_INFO'
-							},
-							{
-								'sort': this.$t('message.Employees'),
-								'url': '/corporate-culture/employees',
-								'icon': 'icon-huodong1',
-								'showType':'SEC_MENU_FORMAL_DATA'
-							},
-							{
-								'sort': this.$t('message.OversealLife'),
-								'url': '/corporate-culture/overseal-life',
-								'icon': 'icon-fengcai',
-								'showType':'SEC_MENU_FORMAL_DATA'
-							}
-						]
-					},
-					{
-						'sort': this.$t('message.JobManagement'),
-						'url': '/career',
-						'icon': 'icon-zhaopinzhongxin1',
-						'showType': 'MENU_FORMAL',
-						'sortChild': [
-							{
-								'sort': this.$t('message.JobOpenings'),
-								'url': '/career/job-openings',
-								'icon': 'icon-zhaopin',
-								'showType':'SEC_MENU_FORMAL_INFO'
-							},
-							{
-								'sort': this.$t('message.ClosedJobs'),
-								'url': '/career/closed-jobs',
-								'icon': 'icon-guanbi',
-								'showType':'SEC_MENU_FORMAL_DATA'
-							}
-						]
-					},
-					{
-						'sort': this.$t('message.NewsContents'),
-						'url': '/news',
-						'icon': 'icon-xinwen',
-						'showType': 'MENU_FORMAL',
-						'sortChild': [
-							{
-								'sort': this.$t('message.NewsList'),
-								'url': '/news/news-list',
-								'icon': 'icon-gongsi',
-								'showType':'SEC_MENU_FORMAL_INFO'
-							}
-							// {
-							// 	'sort': this.$t('message.CompanyNews'),
-							// 	'url': '/news/company-news',
-							// 	'icon': 'icon-gongsi',
-							// 	'showType':'SEC_MENU_FORMAL_INFO'
-							// },
-							// {
-							// 	'sort': this.$t('message.IndustryNews'),
-							// 	'url': '/news/industry-news',
-							// 	'icon': 'icon-xingye',
-							// 	'showType':'SEC_MENU_FORMAL_DATA'
-							// }
-						]
-					}
-				];
-			}
-		},
-		'methods': {
-			handleSelect (key) {
-				this.activeUrl = key;
-			}
-		}
+		mounted () {},
+		methods: {}
 	};
 </script>
 

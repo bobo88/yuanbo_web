@@ -1,7 +1,7 @@
 const router = require('koa-router')()
 const { blogList, getDetail, addBlog, updateBlog, deleteBlog, rankList, getTopicList, addTopicType, editTopicType, deleteTopicType } = require('../controller/blog')
 const { SuccessModel, ErrorModel } = require('../model/resModel')
-// const loginCheck = require('../middleware/loginCheck')
+const loginCheck = require('../middleware/loginCheck')
 
 router.prefix('/api/blog')
 
@@ -31,7 +31,7 @@ router.get('/detail', async function (ctx, next) {
 })
 
 // loginCheck
-router.post('/add', async function (ctx, next) {
+router.post('/add', loginCheck, async function (ctx, next) {
   const body = ctx.request.body
   // body.author = ctx.session.username
   if (!body.title || !body.content || !body.brief || !body.typeId || (body.typeId === 3 && !body.topicId)) {
@@ -46,7 +46,7 @@ router.post('/add', async function (ctx, next) {
   }
 })
 
-router.post('/edit', async function (ctx, next) {
+router.post('/edit', loginCheck, async function (ctx, next) {
   const body = ctx.request.body
   // body.author = ctx.session.username
   if (!body.id || !body.title || !body.content || !body.brief || !body.typeId || (body.typeId === 3 && !body.topicId)) {
@@ -61,7 +61,7 @@ router.post('/edit', async function (ctx, next) {
   }
 })
 
-router.post('/delete', async function (ctx, next) {
+router.post('/delete', loginCheck, async function (ctx, next) {
   const body = ctx.request.body
   let { id = ''} = body
   if (!body.id) {
@@ -92,7 +92,7 @@ router.get('/topic/list', async function (ctx, next) {
   ctx.body = new SuccessModel(data)
 })
 // 5、API：-- Add 专题分类接口
-router.post('/topic/add', async function (ctx, next) {
+router.post('/topic/add', loginCheck, async function (ctx, next) {
   const body = ctx.request.body
   if (!body.title || !body.description) {
     ctx.body = new ErrorModel('字段缺失')
@@ -102,7 +102,7 @@ router.post('/topic/add', async function (ctx, next) {
   }
 })
 // 6、API：-- edit 专题分类接口
-router.post('/topic/edit', async function (ctx, next) {
+router.post('/topic/edit', loginCheck, async function (ctx, next) {
   const body = ctx.request.body
   if (!body.id || !body.title || !body.description) {
     ctx.body = new ErrorModel('字段缺失')
@@ -112,7 +112,7 @@ router.post('/topic/edit', async function (ctx, next) {
   }
 })
 // 7、API：-- delete 专题分类接口
-router.post('/topic/delete', async function (ctx, next) {
+router.post('/topic/delete', loginCheck, async function (ctx, next) {
   const body = ctx.request.body
   let { id = ''} = body
   if (!body.id) {

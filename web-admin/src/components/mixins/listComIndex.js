@@ -9,29 +9,35 @@ export const CustomListComConfig = {
     }
   },
   watch: {
-    // dataSearch () {
-    //   this.$nextTick(() => {
-    //     this.getTableDataList({
-    //       pageIndex :this.pageIndex,
-    //       pageSize :this.pageSize
-    //     });
-    //   });
-    // }
+    dataSearch () {
+      this.$nextTick(() => {
+        this.getDataList({
+          pageIndex :this.pageIndex,
+          pageSize :this.pageSize
+        });
+      });
+    }
   },
   data() {
     return {
+      emptyText: '暂无数据',
+      multipleSelection: [],
+      loading: false,
       total: 0,
       pageIndex: 1,
-      pageSize: 10,
+      pageSize: 20
     };
   },
   mounted () {
-    // 默认一进来就请求新闻列表数据
-    this.getTableDataList();
+    // 默认一进来 请求列表数据
+    this.getDataList();
   },
   methods: {
+    handleSelectionChange (val) {
+      this.multipleSelection = val;
+    },
     cbPaginationPage (options) {
-      this.getTableDataList(options);
+      this.getDataList(options);
     }
   }
 };

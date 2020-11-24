@@ -86,7 +86,7 @@ export default {
 				this.password = '';
 				this.$store.commit(this.Constant.SET_LOGIN_DATA, loginData);
 
-				// this.$localStore.set('token',data.data.token);
+				this.$localStore.set('token', data.data.token);
 				// this.$localStore.set('userAuthority',[].concat(data.data.menuPerms).concat(data.data.interfacePerms));
 				// this.$localStore.set('authCountryScope',data.data.authCountryScope);
 				this.$router.push({
