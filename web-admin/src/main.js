@@ -2,7 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import './prototype';
 // import myDebugger from './debugger';
-
+import qs from 'qs'
 
 import 'babel-polyfill';
 import localStore from 'store';
@@ -100,6 +100,7 @@ Object.defineProperty(Vue.prototype, 'Api', { 'value': api });
 Object.defineProperty(Vue.prototype, '$filters', { 'value': filters });
 Object.defineProperty(Vue.prototype, '$localStore', { 'value': localStore });
 Object.defineProperty(Vue.prototype, '$echarts', { 'value': echarts });
+Object.defineProperty(Vue.prototype, '$qs', { 'value': qs });
 
 
 /**

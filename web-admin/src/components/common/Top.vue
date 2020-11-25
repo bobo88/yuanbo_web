@@ -14,7 +14,7 @@
           </span>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item>
-              <el-button class="f14" type="text" size="small" @click="changeMode"><span :class="{'currentMode': MODE ==='bright'}">{{ $t('message.Brightmode') }}</span> / <span :class="{'currentMode': MODE ==='dark'}">{{ $t('message.Darkmode') }}</span></el-button>
+              <el-button class="f14" type="text" size="small" @click="changeMode"><span :class="{'currentMode': MODE ==='bright'}">亮色模式</span> / <span :class="{'currentMode': MODE ==='dark'}">暗色模式</span></el-button>
             </el-dropdown-item>
             <!-- <el-dropdown-item>
               <el-button class="f14" type="text" size="small" @click="changeLanguage"><span :class="{'currentLang': $i18n.locale ==='en'}">English</span> / <span :class="{'currentLang': $i18n.locale ==='zh'}">简体中文</span></el-button>

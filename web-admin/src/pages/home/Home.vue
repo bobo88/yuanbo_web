@@ -2,44 +2,44 @@
   <div class="home" v-loading="loading" :max-height="$store.state.auth.bodyHight">
     <div class="common-content">
 			<el-breadcrumb separator-class="el-icon-arrow-right" class="common-tit">
-				<el-breadcrumb-item>{{$t("message.home")}}</el-breadcrumb-item>
-				<el-breadcrumb-item>{{$t("message.dataOverview")}}</el-breadcrumb-item>
+				<el-breadcrumb-item>首页</el-breadcrumb-item>
+				<el-breadcrumb-item>数据概览</el-breadcrumb-item>
 			</el-breadcrumb>
 
 			<div class="contact-us-box">
-				<p class="info"><i class="el-icon-bell"></i>{{ $t("message.contactUs") }}</p>
+				<p class="info"><i class="el-icon-bell"></i>使用过程中如有疑问请联系袁波 (yuanbo1209@163.com)</p>
 			</div>
 
       <div class="crosswise">
 				<el-row :gutter="10">
-					<el-col :xs="24" :sm="12" :md="6" :lg="6" :xl="6">
+					<el-col :xs="24" :sm="12" :md="8" :lg="8" :xl="8">
 						<div class="grid-content bg-purple">
 							<div class="items bg-color-link">
-								<span class="item-text" :title='$t("message.NewsContents")'>{{$t("message.NewsContents")}}</span>
+								<span class="item-text" title='文章管理'>文章管理</span>
 								<span class="item-num">{{dataOverview.NewsContents | numberFormat}}</span>
 								<span class="iconfont icon-jiantou"></span>
 							</div>
 						</div>
 					</el-col>
-					<el-col :xs="24" :sm="12" :md="6" :lg="6" :xl="6">
+					<el-col :xs="24" :sm="12" :md="8" :lg="8" :xl="8">
 						<div class="grid-content bg-purple">
 							<div class="items bg-color-success">
-								<span class="item-text" :title='$t("message.JobsPosted")'>{{$t("message.JobsPosted")}}</span>
+								<span class="item-text" title='分类管理'>分类管理</span>
 								<p class="item-num">{{dataOverview.JobsPosted | numberFormat}}</p>
 								<span class="iconfont icon-jiantou"></span>
 							</div>
 						</div>
 					</el-col>
-					<el-col :xs="24" :sm="12" :md="6" :lg="6" :xl="6">
+					<el-col :xs="24" :sm="12" :md="8" :lg="8" :xl="8">
 						<div class="grid-content bg-purple">
 							<div class="items bg-color-warning">
-								<span class="item-text" :title='$t("message.CompanyNews")'>{{$t("message.CompanyNews")}}</span>
+								<span class="item-text" title='评论管理'>评论管理</span>
 								<p class="item-num">{{dataOverview.CompanyNews | numberFormat}}</p>
 								<span class="iconfont icon-jiantou"></span>
 							</div>
 						</div>
 					</el-col>
-					<el-col :xs="24" :sm="12" :md="6" :lg="6" :xl="6">
+					<!-- <el-col :xs="24" :sm="12" :md="6" :lg="6" :xl="6">
 						<div class="grid-content bg-purple">
 							<div class="items bg-color-danger">
 								<span class="item-text" :title='$t("message.IndustrialNews")'>{{$t("message.IndustrialNews")}}</span>
@@ -47,7 +47,7 @@
 								<span class="iconfont icon-jiantou"></span>
 							</div>
 						</div>
-					</el-col>
+					</el-col> -->
 				</el-row>
       </div>
     </div>

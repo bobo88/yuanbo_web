@@ -50,8 +50,7 @@
         </div>
       </div>
       <div class="mb20 f12">
-        <p class="tc-tit mb10 fb f14">内容: {{ dataEdit.content.length }}</p>
-        {{dataEdit.content}}
+        <p class="tc-tit mb10 fb f14">内容: </p>
         <div class="cont-tmain">
           <!-- 富文本编辑器 -->
           <quill-editor
@@ -175,6 +174,7 @@ export default {
           let _dataEdit = this.dataEdit;
           // 编辑
           if (_dataEdit.id) {
+            let _content = JSON.stringify(_dataEdit.content);
             let options = {
               id: parseInt(_dataEdit.id),
               typeId: parseInt(_dataEdit.typeId),
@@ -185,7 +185,7 @@ export default {
               hot: parseInt(_dataEdit.hot) || 0,
               source: _dataEdit.source,
               banner: _dataEdit.banner,
-              content: _dataEdit.content
+              content: _content
             };
             this.Api.allApiEntry('updateBlog', options).then((data) => {
               if (parseInt(data.code) === 0) {

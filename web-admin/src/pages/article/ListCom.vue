@@ -121,17 +121,15 @@ export default {
       currentBlogContent: ''
     };
   },
-  computed: {
-    formatName (val) {
-      let filterArr = this.dataTopic.filter(i => i.id === parseInt(val))
-      if (filterArr && filterArr.length > 0) {
-        return filterArr[0].title
-      }
-      return ''
-    }
-    
-  },
   methods: {
+    tableRowClassName({row, rowIndex}) {
+      if (row.typeId === 1) {
+        return 'success-row';
+      } else if (row.typeId === 2) {
+        return 'warning-row';
+      }
+      return '';
+    },
     // 获取视频列表
     async getDataList (paramsOptions) {
       if (paramsOptions) {
@@ -214,3 +212,7 @@ export default {
   }
 };
 </script>
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style lang="scss" scoped="scoped" type="text/css">
+  
+</style>
