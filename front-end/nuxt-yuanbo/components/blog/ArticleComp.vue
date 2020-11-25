@@ -9,7 +9,8 @@
 
     <div class="content">
       <div class="ql-editor">
-        <!-- <div v-html="test"></div> -->
+        <!-- <p>{{typeof dataDetail.content}}</p>
+        {{dataDetail.content}} -->
         <div v-html="dataDetail.content"></div>
       </div>
     </div>

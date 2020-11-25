@@ -53,12 +53,28 @@ export default {
     // xx
   },
   methods: {
+    htmlRestore (str) {
+      var s = "";
+      if (str.length === 0) {
+        return "";
+      }
+      s = str.replace(/&amp;/g, "&");
+      s = s.replace(/&lt;/g, "<");
+      s = s.replace(/&gt;/g, ">");
+      s = s.replace(/&nbsp;/g, " ");
+      s = s.replace(/&#39;/g, "\'");
+      s = s.replace(/&quot;/g, "\"");
+      return s;
+    },
     getBlogDetail () {
       this.$axios.get('/api/blog/detail?id=' + this.$nuxt.$route.params.id).then((res) => {
-        // console.log(res)
         if (res.data && res.data.code === 0) {
-          this.blogDetailObj = res.data.data || {}
+          let _data = res.data.data;
+          _data.content = this.htmlRestore(_data.content);
+          this.blogDetailObj = _data || {}
         }
+      }).catch(err => {
+        console.log(err)
       })
     }
   }
