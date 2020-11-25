@@ -49,7 +49,9 @@ export default {
   methods: {
     getBlogList () {
       this.loading = true
-      this.$axios.post('/api/blog/list').then((res) => {
+      this.$axios.post('/api/blog/list', {
+        typeId: 1
+      }).then((res) => {
         console.log('/api/blog/list: --->', res)
         const resData = res.data
         if (resData && resData.code === 0) {
