@@ -18,7 +18,7 @@
           <i class="avatar"><img src="~/assets/images/logo/avatar.png"></i>
           <span>袁波</span>
           <span>{{ item.createtime | dateFormatYyyyMmDd }}</span>
-          <span>【<a href="/blog-list">个人博客</a>】</span>
+          <span>【<a href="/#/blog-list">个人博客</a>】</span>
         </p>
         <a :href="'/#/blog-list/' + item.id" class="viewmore">
           <el-button type="primary" size="mini">阅读更多</el-button>
