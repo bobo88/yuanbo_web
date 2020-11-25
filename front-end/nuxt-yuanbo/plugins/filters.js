@@ -96,3 +96,4 @@ const filters = {
 export default filters
 // 注册全局过滤器
 Object.keys(filters).forEach(k => Vue.filter(k, filters[k]))
+Object.defineProperty(Vue.prototype, '$filters', { 'value': filters });
