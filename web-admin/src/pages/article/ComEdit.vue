@@ -174,7 +174,7 @@ export default {
           let _dataEdit = this.dataEdit;
           // 编辑
           if (_dataEdit.id) {
-            let _content = JSON.stringify(_dataEdit.content);
+            let _content = this.$filters.htmlEncode(_dataEdit.content);
             let options = {
               id: parseInt(_dataEdit.id),
               typeId: parseInt(_dataEdit.typeId),
