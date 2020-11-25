@@ -152,6 +152,7 @@ export default {
         let _data = data.data;
         if (_data.list && _data.list.length > 0) {
           this.dataList = _data.list.map(i => {
+            i.content = this.$filters.htmlRestore(i.content);
             let filterArr = this.dataTopic.filter(j => j.id === parseInt(i.topicId))
             if (filterArr && filterArr.length > 0) {
               this.$set(i, 'topicName', filterArr[0].title);
