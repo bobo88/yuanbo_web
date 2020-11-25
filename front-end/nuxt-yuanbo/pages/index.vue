@@ -3,14 +3,14 @@
   <div class="container-cont clearfix">
     <div class="lbox">
       <!-- BANNER -->
-      <banner />
+      <!-- <banner /> -->
       <!-- 博客列表 -->
       <home-blog-list />
     </div>
 
     <div class="rbox">
       <!-- 袁波的名片 -->
-      <card />
+      <!-- <card /> -->
 
       <!-- 点击排行 -->
       <ranking />

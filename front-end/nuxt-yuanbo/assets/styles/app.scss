@@ -63,12 +63,13 @@ input, textarea, select {
   header {
     position: fixed;
     z-index: 999;
+    height: 110px;
   }
   .navbox {
     width: 100% !important;
   }
   .main-container {
-    padding-top: 80px !important;
+    padding-top: 130px !important;
   }
   .main-container, .box {
     width: 96% !important;
@@ -81,7 +82,7 @@ input, textarea, select {
   }
   .nav-list {
     width: 100%;
-    height: auto;
+    height: 50px;
     background: rgba(0,0,0,0.5);
     margin-top: 18px;
     position: fixed;
