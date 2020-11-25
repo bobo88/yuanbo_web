@@ -14,12 +14,26 @@
       <div class="search-cont">
         <!-- 查询组件 -->
         <div class="mb10">
-          <span class="tit">昵称：</span>
-          <el-input clearable size="mini" class="w150 mb5" v-model="username"></el-input>
+          <span class="tit">分类:</span>
+          <el-select clearable class="w150 mb5" size="mini" v-model="typeId" placeholder="请选择" @change="changeType">
+            <el-option
+              v-for="item in typeList"
+              :key="item.value"
+              :label="item.name"
+              :value="item.value">
+            </el-option>
+          </el-select>
         </div>
         <div class="mb10">
-          <span class="tit">文章ID：</span>
-          <el-input type="number" clearable size="mini" class="w150 mb5"  v-model.number="blogId"></el-input>
+          <span class="tit">所属专题:</span>
+          <el-select clearable :disabled="+typeId !== 3" class="w150 mb5" size="mini" v-model="topicId" placeholder="请选择">
+            <el-option
+              v-for="item in dataTopic"
+              :key="item.id"
+              :label="item.title"
+              :value="item.id">
+            </el-option>
+          </el-select>
         </div>
 
         <div class="mb10">
@@ -34,18 +48,40 @@
   import {CustomSearchConfig} from '@/components/mixins/searchIndex'
   export default {
     mixins: [CustomSearchConfig],
+    props: {
+      dataTopic: {
+        type: Array
+      }
+    },
     data () {
       return {
-        username: '',
-        blogId: ''
+        typeList: [
+          {
+            name: '个人博客',
+            value: 1
+          },
+          {
+            name: '程序人生',
+            value: 2
+          },
+          {
+            name: '专题版块',
+            value: 3
+          }
+        ],
+        typeId: '',
+        topicId: ''
       }
     },
     methods: {
+      changeType () {
+        this.topicId = '';
+      },
       // 点击搜索按钮，将查询数据回传到父组件
       search () {
         let options = {
-          username: this.username,
-          blogId: this.blogId
+          typeId: this.typeId,
+          topicId: this.topicId
         };
 
         this.$emit('cbSearch', options);

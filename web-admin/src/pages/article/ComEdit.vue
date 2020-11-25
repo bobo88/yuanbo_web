@@ -8,6 +8,7 @@
     <el-dialog
       title='文章'
       :visible.sync="visible" @close="cancel"
+      :close-on-click-modal="false"
       center
       width="80%">
       <div class="mb20 f12" v-if="dataEdit.id">
@@ -20,18 +21,37 @@
       </div>
       <div class="mb20 f12">
         <p class="tc-tit mb10 fb f14">简介:</p>
-        <el-input type="textarea" size="mini" class="w100Percent vm" v-model="dataEdit.brief"></el-input>
+        <el-input clearable size="mini" class="w100Percent vm" v-model="dataEdit.brief" :maxlength="255"></el-input>
       </div>
       <div class="mb20 f12">
         <p class="tc-tit mb10 fb f14">分类:</p>
-        <el-input clearable size="mini" class="w100Percent vm" v-model="dataEdit.typeId"></el-input>
+        <div>
+          <el-select clearable class="w100Percent vm" size="mini" v-model="dataEdit.typeId" placeholder="请选择">
+            <el-option
+              v-for="item in typeList"
+              :key="item.value"
+              :label="item.name"
+              :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
       </div>
       <div class="mb20 f12">
         <p class="tc-tit mb10 fb f14">所属专题:</p>
-        <el-input clearable size="mini" class="w100Percent vm" v-model="dataEdit.topicId"></el-input>
+        <div>
+          <el-select clearable :disabled="+dataEdit.typeId !== 3" class="w100Percent vm" size="mini" v-model="dataEdit.topicId" placeholder="请选择">
+            <el-option
+              v-for="item in dataTopic"
+              :key="item.id"
+              :label="item.title"
+              :value="item.id">
+            </el-option>
+          </el-select>
+        </div>
       </div>
       <div class="mb20 f12">
-        <p class="tc-tit mb10 fb f14">内容:</p>
+        <p class="tc-tit mb10 fb f14">内容: {{ dataEdit.content.length }}</p>
+        {{dataEdit.content}}
         <div class="cont-tmain">
           <!-- 富文本编辑器 -->
           <quill-editor
@@ -68,6 +88,20 @@ export default {
   data() {
     return {
       visible: false,
+      typeList: [
+        {
+          name: '个人博客',
+          value: 1
+        },
+        {
+          name: '程序人生',
+          value: 2
+        },
+        {
+          name: '专题版块',
+          value: 3
+        }
+      ],
       editorOption: {
         // Some Quill options...
       }
@@ -102,8 +136,25 @@ export default {
       this.visible = false;
     },
     validateBeforeSubmit () {
+      //  title brief typeId topicId content
+      if (!this.dataEdit.title) {
+        this.$message.error('标题不能为空!');
+        return false;
+      }
+      if (!this.dataEdit.brief) {
+        this.$message.error('文章简介不能为空!');
+        return false;
+      }
+      if (!this.dataEdit.typeId) {
+        this.$message.error('请选择文章分类!');
+        return false;
+      }
+      if (+this.dataEdit.typeId === 3 && !this.dataEdit.topicId) {
+        this.$message.error('请选择专题版块分类!');
+        return false;
+      }
       if (!this.dataEdit.content) {
-        this.$message.error('评论内容不能为空!');
+        this.$message.error('文章内容不能为空!');
         return false;
       }
       return true;
@@ -115,8 +166,14 @@ export default {
         let _dataEdit = this.dataEdit;
         let options = {
           id: parseInt(_dataEdit.id),
-          blogId: parseInt(_dataEdit.blogId),
-          username: _dataEdit.username,
+          typeId: parseInt(_dataEdit.typeId),
+          topicId: parseInt(_dataEdit.topicId) || 0,
+          title: _dataEdit.title,
+          brief: _dataEdit.brief,
+          author: _dataEdit.author,
+          hot: parseInt(_dataEdit.hot) || 0,
+          source: _dataEdit.source,
+          banner: _dataEdit.banner,
           content: _dataEdit.content
         };
         this.$confirm('您确定要执行此操作？', '提示', {
@@ -125,7 +182,7 @@ export default {
           type: 'warning',
           center: true
         }).then(() => {
-          this.Api.allApiEntry('updateComment', options).then((data) => {
+          this.Api.allApiEntry('updateBlog', options).then((data) => {
             if (parseInt(data.code) === 0) {
               if (data.data) {
                 this.$message.success('操作成功！');

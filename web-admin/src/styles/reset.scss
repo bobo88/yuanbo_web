@@ -221,7 +221,7 @@
 .el-table   .el-table__body  .yellow:hover>td{ background: none!important; }
 
 .ql-editor {
-  .ql-syntax {
+  pre, .ql-syntax {
     padding: 10px 20px;
     line-height: 24px;
     color: #fff;

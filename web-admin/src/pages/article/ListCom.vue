@@ -41,7 +41,7 @@
       </el-table-column>
       <el-table-column align="center" label="专题版块分类" width="150">
         <template slot-scope="scope">
-          {{ scope.row.topicId }}
+          {{ scope.row.topicId ? scope.row.topicName : '' }}
         </template>
       </el-table-column>
       <el-table-column align="center" label="文章banner图" width="150">
@@ -153,7 +153,13 @@ export default {
       if (parseInt(data.code) === 0) {
         let _data = data.data;
         if (_data.list && _data.list.length > 0) {
-          this.dataList = _data.list;
+          this.dataList = _data.list.map(i => {
+            let filterArr = this.dataTopic.filter(j => j.id === parseInt(i.topicId))
+            if (filterArr && filterArr.length > 0) {
+              this.$set(i, 'topicName', filterArr[0].title);
+            }
+            return i
+          });
           this.total = _data.total;
         } else {
           this.dataList = [];

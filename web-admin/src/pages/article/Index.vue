@@ -20,7 +20,7 @@
     </div>
 
     <!-- 查询组件 -->
-    <search-com  @cbSearch="searchInformationCb" ref='searchComRef' @cbAdd="cbAdd"></search-com>
+    <search-com  @cbSearch="searchInformationCb" ref='searchComRef' @cbAdd="cbAdd" :data-topic="topicListData"></search-com>
     <!-- 报表组件 -->
     <list-com :data-search="dataSearchOptions" @cbEdit="cbEdit" ref="listComId" :data-topic="topicListData"></list-com>
     <!-- 编辑弹窗组件 -->
@@ -80,6 +80,7 @@
       },
       cbEdit (options) {
         this.dataEdit = JSON.parse(JSON.stringify(options.row));
+        this.dataEdit.topicId = this.dataEdit.topicId || '';
         // 显示弹窗
         this.$nextTick(() => {
           this.$refs.comEdit.show();

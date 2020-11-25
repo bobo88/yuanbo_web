@@ -13,7 +13,7 @@
           <a v-if="item % 2 === 0" :href="'/#/blog-list/' + item.id" :title="item.title"><img src="~/assets/images/blog.png" :alt="item.title"></a>
           <a v-else :href="'/#/blog-list/' + item.id" :title="item.title"><img src="~/assets/images/blog2.png" :alt="item.title"></a>
         </span>
-        <p class="blogtext">{{ item.content }}</p>
+        <p class="blogtext">{{ item.brief }}</p>
         <p class="bloginfo">
           <i class="avatar"><img src="~/assets/images/logo/avatar.png"></i>
           <span>袁波</span>
