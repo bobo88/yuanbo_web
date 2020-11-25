@@ -188,7 +188,7 @@ export default {
         let options = {
           id: row.id
         };
-        this.Api.allApiEntry('deleteComment', options).then((data) => {
+        this.Api.allApiEntry('deleteBlog', options).then((data) => {
           if (parseInt(data.code) === 0) {
             if (data.data) {
               this.$message.success('操作成功！');

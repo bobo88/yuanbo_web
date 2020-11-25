@@ -38,6 +38,7 @@
 
         <div class="mb10">
           <el-button size="mini" @click="search" type="primary" plain class="mb10">搜索</el-button>
+          <el-button size="mini" @click="add" type="success" class="mb10">新增</el-button>
         </div>
       </div>
     </el-drawer>
@@ -76,6 +77,10 @@
     methods: {
       changeType () {
         this.topicId = '';
+      },
+      add () {
+        this.$emit('cbAdd');
+        this.close();
       },
       // 点击搜索按钮，将查询数据回传到父组件
       search () {

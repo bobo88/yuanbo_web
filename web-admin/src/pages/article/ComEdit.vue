@@ -26,7 +26,7 @@
       <div class="mb20 f12">
         <p class="tc-tit mb10 fb f14">分类:</p>
         <div>
-          <el-select clearable class="w100Percent vm" size="mini" v-model="dataEdit.typeId" placeholder="请选择">
+          <el-select clearable class="w100Percent vm" size="mini" v-model="dataEdit.typeId" placeholder="请选择" @change="changeType">
             <el-option
               v-for="item in typeList"
               :key="item.value"
@@ -129,6 +129,9 @@ export default {
       console.log('editor change!', quill, html, text)
       this.content = html
     },
+    changeType () {
+      this.dataEdit.topicId = '';
+    },
     show () {
       this.visible = true;
     },
@@ -163,40 +166,71 @@ export default {
       if (!this.validateBeforeSubmit()) {
         return false;
       } else {
-        let _dataEdit = this.dataEdit;
-        let options = {
-          id: parseInt(_dataEdit.id),
-          typeId: parseInt(_dataEdit.typeId),
-          topicId: parseInt(_dataEdit.topicId) || 0,
-          title: _dataEdit.title,
-          brief: _dataEdit.brief,
-          author: _dataEdit.author,
-          hot: parseInt(_dataEdit.hot) || 0,
-          source: _dataEdit.source,
-          banner: _dataEdit.banner,
-          content: _dataEdit.content
-        };
         this.$confirm('您确定要执行此操作？', '提示', {
           confirmButtonText: 'YES',
           cancelButtonText: 'NO',
           type: 'warning',
           center: true
         }).then(() => {
-          this.Api.allApiEntry('updateBlog', options).then((data) => {
-            if (parseInt(data.code) === 0) {
-              if (data.data) {
-                this.$message.success('操作成功！');
-                this.$emit('cb');
-                this.cancel();
+          let _dataEdit = this.dataEdit;
+          // 编辑
+          if (_dataEdit.id) {
+            let options = {
+              id: parseInt(_dataEdit.id),
+              typeId: parseInt(_dataEdit.typeId),
+              topicId: parseInt(_dataEdit.topicId) || 0,
+              title: _dataEdit.title,
+              brief: _dataEdit.brief,
+              author: _dataEdit.author,
+              hot: parseInt(_dataEdit.hot) || 0,
+              source: _dataEdit.source,
+              banner: _dataEdit.banner,
+              content: _dataEdit.content
+            };
+            this.Api.allApiEntry('updateBlog', options).then((data) => {
+              if (parseInt(data.code) === 0) {
+                if (data.data) {
+                  this.$message.success('操作成功！');
+                  this.$emit('cb');
+                  this.cancel();
+                } else {
+                  this.$message.error(data.message)
+                }
               } else {
                 this.$message.error(data.message)
               }
-            } else {
-              this.$message.error(data.message)
-            }
-          }).catch(err => {
-            this.$message.error(err.message)
-          });
+            }).catch(err => {
+              this.$message.error(err.message)
+            });
+          } else {
+            // 新增
+            let options = {
+              typeId: parseInt(_dataEdit.typeId),
+              topicId: parseInt(_dataEdit.topicId) || 0,
+              title: _dataEdit.title,
+              brief: _dataEdit.brief,
+              author: _dataEdit.author,
+              hot: parseInt(_dataEdit.hot) || 0,
+              source: _dataEdit.source,
+              banner: _dataEdit.banner,
+              content: _dataEdit.content
+            };
+            this.Api.allApiEntry('addBlog', options).then((data) => {
+              if (parseInt(data.code) === 0) {
+                if (data.data) {
+                  this.$message.success('操作成功！');
+                  this.$emit('cb');
+                  this.cancel();
+                } else {
+                  this.$message.error(data.message)
+                }
+              } else {
+                this.$message.error(data.message)
+              }
+            }).catch(err => {
+              this.$message.error(err.message)
+            });
+          }
         });
       }
     }

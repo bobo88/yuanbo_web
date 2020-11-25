@@ -71,8 +71,16 @@
       cbAdd () {
         // 显示弹窗
         this.dataEdit = {
+          id: '',
           title: '',
-          description: ''
+          brief: '',
+          content: '',
+          author: '',
+          hot: '',
+          source: '',
+          typeId: '',
+          topicId: '',
+          banner: ''
         };
         this.$nextTick(() => {
           this.$refs.comEdit.show();

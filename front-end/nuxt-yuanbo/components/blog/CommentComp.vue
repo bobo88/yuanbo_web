@@ -29,7 +29,8 @@
 
     <div class="comment-list-box">
       <p class="list-header">
-        <em class="blog-joinnum">{{ dataDetail.hot || 0 }}</em>人参与，<em class="blog-totalnum">{{ commentListData.length || 0 }}</em>条评论
+        <!-- <em class="blog-joinnum">{{ dataDetail.hot || 0 }}</em>人参与， -->
+        共 <em class="blog-totalnum">{{ commentListData.length || 0 }}</em>条评论
       </p>
 
       <ul class="comment-list">
@@ -105,7 +106,7 @@ export default {
         return
       }
       const options = {
-        blogID: blogId,
+        blogId: blogId,
         content: this.comment,
         username: this.nickname
       }
