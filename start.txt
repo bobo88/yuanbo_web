@@ -3,3 +3,5 @@
 2、 上传代码：front-end打包前端代码（npm run generate -> dist文件夹 -> FTP上传到htdocs/public文件夹）
 
 3、 上传代码：back-end后台代码（可以阿里云安装对应依赖，阿里云已经安装好了node环境），上传所有代码（非node_modules）到htdocs。
+
+4、PM2： 定位到 htdocs 目录 -> pm2 start bin/www  -> 开启pm2。如果要关闭所有pm2，运行 pm2 stop all。
