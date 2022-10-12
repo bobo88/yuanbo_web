@@ -3,6 +3,7 @@ node_modules
 /dist
 /docker_build
 docker_build/dist_*
+/**/**/conf
 
 /tests/e2e/videos/
 /tests/e2e/screenshots/

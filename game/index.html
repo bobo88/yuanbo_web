@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>投掷骰子 - 统计点数</title>
+
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- import Vue before Element -->
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            -webkit-text-size-adjust: none;
+            font-size: 16px;
+            font-family: '微软雅黑', Arial, sans-serif;
+            background: url('./bg.jpeg') center center no-repeat;
+        }
+        html,body,#app,.wrapper{
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        }
+        ol,ul{ list-style: none;}
+        .inline-block{ display: inline-block;}
+        * {
+        margin: 0;
+        padding: 0;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        box-sizing: border-box;
+        font-weight: normal;
+        }
+        .clearfix:after { content:"."; display:block; height:0; clear:both; visibility:hidden;}
+        .clearfix { display:inline-block;}
+        * html .clearfix { height:1%;}
+        .clearfix { display:block;}
+        .fr { float: right;}
+        .fl { float: left;}
+
+        #app {
+            position: fixed;
+            z-index: 1;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+        }
+        .main-box {
+            position: absolute;
+            z-index: 9;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto !important;
+            height: 600px;
+            padding: 100px 20px;
+            border: 2px solid #ccc;
+            border-radius: 15px;
+            background: #fff;
+        }
+        .total-item {
+            margin-right: 5px;
+            display: inline-block;
+            width: 30px;
+            height: 400px;
+            text-align: center;
+        }
+        .process-bar {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            height: 100%;
+            background: #f7f7f7;
+        }
+        .process-bar-inner {
+            position: absolute;
+            z-index: 9;
+            bottom: 0;
+            left: 0;
+            display: inline-block;
+            width: 100%;
+            background: #409EFF;
+        }
+        .total-total {
+            position: absolute;
+            z-index: 10;
+            top: -15px;
+            left: 0;
+            display: block;
+            width: 30px;
+            color: #909399;
+            font-size: 14px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .process-bar-inner.red {
+            background: #F56C6C;
+        }
+        .blue {
+            color: #409EFF;
+        }
+        .red {
+            color: #F56C6C;
+        }
+        .total-num {
+            color: #000;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .tc { margin: 0 auto; text-align: center;}
+        .tl { text-align: left;}
+        .f24 { font-size: 24px;}
+        .w300 { width: 300px;}
+        .w100 { width: 100px;}
+        .mb10 { margin-bottom: 10px;}
+        .mb20 { margin-bottom: 20px;}
+        .mb50 { margin-bottom: 50px;}
+        .mr10 { margin-right: 10px;}
+        .sz { display: inline-block; width: 84px; height: 86px; background-image: url('./sz.png');}
+        .sz-1 { background-position: -273px -334px;}
+        .sz-2 { background-position: -273px -202px;}
+        .sz-3 { background-position: -273px -72px;}
+        .sz-4 { background-position: -142px -334px;}
+        .sz-5 { background-position: -142px -202px;}
+        .sz-6 { background-position: -142px -72px;}
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="clearfix tc main-box" style="width: 1000px;">
+            <div class="total-box fl" style="width: 400px;">
+                <!-- 点数汇总： 2 到 12 -->
+                <div v-for="(item, key) in totalObj" :key="key" class="total-item">
+                    <div class="process-bar">
+                        <p class="process-bar-inner" :class="(key > 4 && key < 10) ? 'red' : ''" :style="{'height': item > 0 ? heightPersent(item) + '%' : 0}">
+                            <span class="total-total" v-show="item > 0">{{ item }}</span>
+                        </p>
+                    </div>
+                    <span class="total-num">{{ key }}</span>
+                </div>
+            </div>
+        
+            <div class="fr tl" style="width: 500px;">
+                <div class="mb20">
+                    <span>投掷速度控制：</span>
+                    <el-radio-group v-model="speed" @change="changeSpeed">
+                        <el-radio :label="200">慢速</el-radio>
+                        <el-radio :label="100">中速</el-radio>
+                        <el-radio :label="10">快速</el-radio>
+                        <el-radio :label="2">极速</el-radio>
+                    </el-radio-group>
+                </div>
+                <p class="mb10 f24">请输入要投掷骰子的次数：</p>
+                <div class="mb50">
+                    <el-input-number class="inline-block w300 mr10" v-model="totalPlay" @change="handleChange" :min="1" label="请输入次数，必须是正整数"></el-input-number>
+                    <el-button class="inline-block w100" type="primary" @click="submit">OK</el-button>
+                </div>
+                <div class="mb50 f24">
+                    <p class="blue mb10">蓝队总数：{{ blueTotal }}</p>
+                    <p class="red">红队总数：{{ redTotal }}</p>
+                </div>
+                <div class="clearfix mb20" v-if="randomOne && randomTwo">
+                    <span>当前骰子🎲数：</span>
+                    <span class="w100 sz" :class="'sz-' + randomOne"></span>
+                    <span class="w100 sz" :class="'sz-' + randomTwo"></span>
+                </div>
+                <!-- <div class="mb20">
+                    点数和：{{ randomTotalArr }}
+                </div> -->
+                <!-- <div>
+                    {{ totalObj }}
+                </div> -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: function() {
+                return {
+                    speed: 100,
+                    totalPlay: '',
+                    totalArr: [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+                    totalObj: {
+                        '2': 0,
+                        '3': 0,
+                        '4': 0,
+                        '5': 0,
+                        '6': 0,
+                        '7': 0,
+                        '8': 0,
+                        '9': 0,
+                        '10': 0,
+                        '11': 0,
+                        '12': 0
+                    },
+                    randomOne: '',
+                    randomTwo: '',
+                    randomTotalArr: [],
+                    thisInterval: null
+                }
+            },
+            methods: {
+                handleChange: function () {
+                    // handleChange
+                },
+                changeSpeed: function () {
+                    // this.submit()
+                },
+                submit: function () {
+                    this.reset();
+                    if (!this.totalPlay) {
+                        this.$message.error('请输入有效的正整数');
+                        return false
+                    }
+                    // console.log(this.totalPlay)
+                    // 统计
+                    this.randomTotal()
+                },
+                reset: function () {
+                    clearInterval(this.thisInterval);
+                    this.randomTotalArr = [];
+                    this.randomOne = '';
+                    this.randomTwo = '';
+                    this.totalObj = {
+                        '2': 0,
+                        '3': 0,
+                        '4': 0,
+                        '5': 0,
+                        '6': 0,
+                        '7': 0,
+                        '8': 0,
+                        '9': 0,
+                        '10': 0,
+                        '11': 0,
+                        '12': 0
+                    };
+                },
+                randomTotal: function () {
+                    if (this.totalPlay) {
+                        var len = this.totalPlay;
+                        var i = 1;
+                        var flag = false;
+                        this.thisInterval = setInterval(() => {
+                            if (i > len) {
+                                clearInterval(this.thisInterval)
+                                return false
+                            }
+                            // 防止二次操作
+                            if (flag) {
+                                return false;
+                            }
+                            flag = true;
+                            i++
+                            var randomTotal = '';
+                            var randomOne = Math.ceil(Math.random() * 6);
+                            var randomTwo = Math.ceil(Math.random() * 6);
+                            this.randomOne = randomOne;
+                            this.randomTwo = randomTwo;
+                            randomTotal = randomOne + randomTwo
+                            this.randomTotalArr.push(randomTotal)
+                            this.totalObj[randomTotal]++
+                            flag = false;
+                            // console.log(i)
+                        }, this.speed);
+                    }
+                }
+            },
+            computed: {
+                blueTotal: function () {
+                    return this.totalObj[2] + this.totalObj[3] + this.totalObj[4] + this.totalObj[10] + this.totalObj[11] + this.totalObj[12]
+                },
+                redTotal: function () {
+                    return this.totalObj[5] + this.totalObj[6] + this.totalObj[7] + this.totalObj[8] + this.totalObj[9]
+                },
+                heightPersent () {
+                    return function (val) {
+                        return Math.ceil((val/this.totalPlay)*300) > 100 ? 100 : Math.ceil((val/this.totalPlay)*300);
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>

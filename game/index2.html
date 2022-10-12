@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>投掷骰子 - 统计点数</title>
+
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- import Vue before Element -->
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            -webkit-text-size-adjust: none;
+            font-size: 16px;
+            font-family: '微软雅黑', Arial, sans-serif;
+            background: url('./bg.jpeg') center center no-repeat;
+        }
+        html,body,#app,.wrapper{
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        }
+        ol,ul{ list-style: none;}
+        .inline-block{ display: inline-block;}
+        * {
+        margin: 0;
+        padding: 0;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        box-sizing: border-box;
+        font-weight: normal;
+        }
+        .clearfix:after { content:"."; display:block; height:0; clear:both; visibility:hidden;}
+        .clearfix { display:inline-block;}
+        * html .clearfix { height:1%;}
+        .clearfix { display:block;}
+        .fr { float: right;}
+        .fl { float: left;}
+
+        #app {
+            position: fixed;
+            z-index: 1;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+        }
+        .main-box {
+            position: absolute;
+            z-index: 9;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto !important;
+            height: 700px;
+            padding: 50px 20px;
+            border: 2px solid #ccc;
+            border-radius: 15px;
+            background: #fff;
+        }
+        .total-item {
+            margin-right: 10px;
+            display: inline-block;
+            width: 30px;
+            height: 300px;
+            text-align: center;
+        }
+        .process-bar {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            height: 100%;
+            background: #f7f7f7;
+        }
+        .process-bar-inner {
+            position: absolute;
+            z-index: 9;
+            bottom: 0;
+            left: 0;
+            display: inline-block;
+            width: 100%;
+            background: #409EFF;
+        }
+        .total-total {
+            position: absolute;
+            z-index: 10;
+            top: -15px;
+            left: 0;
+            display: block;
+            width: 30px;
+            color: #909399;
+            font-size: 14px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .process-bar-inner.red {
+            background: #F56C6C;
+        }
+        .blue {
+            color: #409EFF !important;
+        }
+        .red {
+            color: #F56C6C !important;
+        }
+        .green {
+            color: #67C23A !important;
+        }
+        .info {
+            color: #909399 !important;
+        }
+        .total-num {
+            color: #000;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .fb { font-weight: bold;}
+        .tc { margin: 0 auto; text-align: center;}
+        .tl { text-align: left;}
+        .f24 { font-size: 24px;}
+        .w200 { width: 200px;}
+        .w300 { width: 300px;}
+        .w400 { width: 400px;}
+        .w100 { width: 100px;}
+        .mb10 { margin-bottom: 10px;}
+        .mb20 { margin-bottom: 20px;}
+        .mb50 { margin-bottom: 50px;}
+        .mr10 { margin-right: 10px;}
+        .mr50 { margin-right: 50px;}
+        .enter-student { height: 40px; line-height: 40px; vertical-align: middle;}
+        .student-list { height: 400px; overflow-y: auto;}
+        .student-list li{ display: inline-block; margin-bottom: 2px; height:20px; line-height: 20px; width: 100px;}
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="clearfix tc main-box" style="width: 1100px;">
+            
+            <div class="fl w300 mr10">
+                <p class="blue mb20 f24 fb">蓝队</p>
+                <p><img src="./qrcode.png" width="150" alt=""></p>
+                <ul class="student-list">
+                    <li v-for="item in totalObj['blue']" :key='item'>{{ item }}</li>
+                </ul>
+            </div>
+            <div class="fl w400 mr10">
+                <!-- 按钮 -->
+                <div class="mb20">
+                    <el-button class="inline-block" :type="playTimes === playRuleConfig.length ? 'info' : 'primary'" @click="submit">点击按钮 - 进行组队({{ playTimes }})</el-button>
+                </div>
+                <!-- 历史数据 -->
+                <div class="inline-block" :class="historyTotalObj.length === 2 ? 'w200' : 'w100'" v-if="historyTotalObj && historyTotalObj.length > 0">
+                    <div class="history-list inline-block w100" v-for="(itemHistory, k) in historyTotalObj" :key="k">
+                        <div v-for="(item, key) in itemHistory" :key="key" class="total-item mb50">
+                            <div class="process-bar mb10">
+                                <!-- 1: 蓝队， 2: 红队 -->
+                                <p class="process-bar-inner" :class="key" :style="{'height': item.length > 0 ? heightPersent(item.length) + '%' : 0}">
+                                    <span class="total-total" v-show="item.length > 0">{{ item.length }}</span>
+                                </p>
+                            </div>
+                            <span class="total-num" :class="key">{{ key === 'blue' ? '蓝队' : '红队' }}</span>
+                        </div>
+                        <p class="info">数据：{{ k + 1 }}</p>
+                    </div>
+                </div>
+                <!-- 图表 -->
+                <div class="w100 inline-block mb50">
+                    <div v-for="(item, key) in totalObj" :key="key" class="total-item mb50">
+                        <div class="process-bar mb10">
+                            <!-- 1: 蓝队， 2: 红队 -->
+                            <p class="process-bar-inner" :class="key" :style="{'height': item.length > 0 ? heightPersent(item.length) + '%' : 0}">
+                                <span class="total-total" v-show="item.length > 0">{{ item.length }}</span>
+                            </p>
+                        </div>
+                        <span class="total-num" :class="key">{{ key === 'blue' ? '蓝队' : '红队' }}</span>
+                    </div>
+                    <p class="green fb">当前数据：{{ playTimes }}</p>
+                </div>
+                <p class="enter-student" v-if="curStudent">当前扫码加入的学生是：<span class="f24 green inline-block w100 fb">{{ curStudent }}</span></p>
+            </div>
+            <div class="fl w300">
+                <p class="red mb20 f24 fb">红队</p>
+                <p><img src="./qrcode.png" width="150" alt=""></p>
+                <ul class="student-list">
+                    <li v-for="item in totalObj['red']" :key='item'>{{ item }}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: function() {
+                return {
+                    speed: 50,
+                    studentList: [
+                        '陈鲁伊',
+                        '陈涛武',
+                        '陈忻莹',
+                        '成依澄',
+                        '邓名佳',
+                        '桂凯旋',
+                        '郭晨冉',
+                        '郭力瑞',
+                        '郭紫萱',
+                        '何文彬',
+                        '胡森瑞',
+                        '李谦宇',
+                        '李伊珵',
+                        '李玉祯',
+                        '刘诺',
+                        '刘洋阳',
+                        '刘岳豪',
+                        '罗安杰',
+                        '宁思涵',
+                        '欧阳梓依',
+                        '彭奕博',
+                        '蒲炳璇',
+                        '沈钰凯',
+                        '石家瑞',
+                        '谭芊睿',
+                        '谭昕童',
+                        '田子木',
+                        '王若瑶',
+                        '王耀加',
+                        '王优璇',
+                        '王玉珏',
+                        '肖慧',
+                        '肖思远',
+                        '谢佳玲',
+                        '谢轩皓',
+                        '谢毅轩',
+                        '徐浩轩',
+                        '徐林宇成',
+                        '许璨凡',
+                        '颜心怡',
+                        '颜子淞',
+                        '杨凯程',
+                        '杨斯璇',
+                        '杨玥',
+                        '张柏欣宇',
+                        '张芷晴',
+                        '张芷琳',
+                        '周腾',
+                        '谢紫馨',
+                        '沈恬如',
+                    ],
+                    playTimes: 0,
+                    playRuleConfig: [
+                        // {
+                        //     'blue': 26,
+                        //     'red': 24
+                        // },
+                        {
+                            'blue': 31,
+                            'red': 19
+                        },
+                        {
+                            'blue': 3,
+                            'red': 47
+                        }
+                    ],
+                    totalObj: {
+                        'blue': [],
+                        'red': []
+                    },
+                    historyTotalObj: [],
+                    curStudent: '',
+                    thisInterval: null
+                }
+            },
+            methods: {
+                changeSpeed: function () {
+                    // this.submit()
+                },
+                submit: function () {
+                    // 缓存历史数据
+                    // totalObj --> historyTotalObj
+                    if (this.playTimes > 0 && this.playTimes < this.playRuleConfig.length) {
+                        this.historyTotalObj.push(this.totalObj)
+                        console.log('historyTotalObj: ', this.historyTotalObj)
+                    }
+                    this.reset();
+                    // 分组
+                    this.randomTotal()
+                },
+                reset: function () {
+                    clearInterval(this.thisInterval);
+                    this.totalObj = {
+                        'blue': [],
+                        'red': []
+                    };
+                    this.curStudent = '';
+                },
+                randomTotal: function () {
+                    var len = this.studentList.length;
+                    var i = 0;
+                    var flag = false;
+                    // 组队次数加一
+                    this.playTimes += 1
+                    if (this.playTimes > this.playRuleConfig.length) {
+                        this.playTimes = 0;
+                        this.$message.error(`您已经组队过${this.playRuleConfig.length}次，数据已经重置！`);
+                        // 重置
+                        this.reset();
+                        // 清空历史组队数据
+                        this.historyTotalObj = [];
+                        return false;
+                    }
+                    // 取 红队/蓝队 最大的插入值（超过这个设置的值，就不能再加入学生了）
+                    var ruleBlueMax = this.playRuleConfig[this.playTimes-1].blue;
+                    var ruleRedMax = this.playRuleConfig[this.playTimes-1].red;
+                    console.log(588, ruleBlueMax, ruleRedMax)
+                    // var maxEnterNum = ruleBlueMax > ruleRedMax ? ruleRedMax : ruleBlueMax;
+                    // console.log('maxEnterNum:', maxEnterNum)
+                    this.thisInterval = setInterval(() => {
+                        if (i > len - 1) {
+                            clearInterval(this.thisInterval)
+                            console.log('结束了......')
+                            return false
+                        }
+                        // 防止二次操作
+                        if (flag) {
+                            return false;
+                        }
+                        flag = true;
+                        this.curStudent = this.studentList[i];
+                        // 随机生成 1 / 2：
+                        // 1插入蓝队， 2插入红队
+                        var randomIndex = Math.ceil(Math.random() * 2);
+                        var groupName = randomIndex === 1 ? 'blue' : 'red';
+                        var otherGroupName = groupName === 'blue' ? 'red' : 'blue';
+
+                        if (
+                            (groupName === 'blue' && this.totalObj['blue'].length === ruleBlueMax) || 
+                            (groupName === 'red' && this.totalObj['red'].length === ruleRedMax)
+                        ) {
+                            this.totalObj[otherGroupName].push(this.studentList[i])
+                        } else {
+                            this.totalObj[groupName].push(this.studentList[i])
+                        }
+                        i++
+                        flag = false;
+                        // console.log(i)
+                    }, this.speed);
+                }
+            },
+            computed: {
+                heightPersent () {
+                    return function (val) {
+                        return Math.ceil((val/50)*100) > 100 ? 100 : Math.ceil((val/50)*100);
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>
